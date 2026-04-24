@@ -186,7 +186,7 @@ html.print-pdf .reveal .slides section { page-break-after: always; }
 
 /* ─── Misc ────────────────────────────────────────────── */
 .small { font-size: 0.72em !important; }
-.tiny  { font-size: 0.62em !important; color: var(--sub); }
+.tiny  { font-size: 0.7em !important; color: var(--sub); }
 .mono  { font-family: 'JetBrains Mono', monospace; }
 .green-text { color: var(--green); font-weight: 600; }
 .red-text   { color: var(--red);   font-weight: 600; }
@@ -304,8 +304,8 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
 /* ─── Source tray ─────────────────────────────────────── */
 .sources-tray {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.55em; color: var(--sub);
-  letter-spacing: 0.05em; line-height: 1.5;
+  font-size: 0.6em; color: var(--sub);
+  letter-spacing: 0.04em; line-height: 1.55;
   margin-top: 14px;
   border-top: 1px solid var(--line);
   padding-top: 8px;
@@ -375,10 +375,12 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
 .vs-col h4 { font-size: 0.72em; margin-bottom: 10px; }
 .vs-col.fixed h4 { color: var(--sub); }
 .vs-col.agent h4 { color: #8A6E1A; }
-.vs-linear { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 10px 0 14px; font-size: 0.82em; color: var(--sub); font-weight: 700; flex-wrap: wrap; }
-.vs-linear .step { padding: 8px 14px; background: white; border: 2px solid #CBD5E1; border-radius: 8px; }
-.vs-loop { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 8px; }
-.vs-loop .step { display: flex; align-items: center; gap: 10px; font-size: 0.74em; color: var(--ink); font-weight: 500; }
+.vs-linear { display: flex; align-items: stretch; justify-content: space-between; gap: 10px; margin: 14px 0 18px; font-size: 1.15em; color: var(--ink); font-weight: 800; flex-wrap: nowrap; }
+.vs-linear .step { flex: 1; padding: 18px 14px; background: white; border: 2px solid #CBD5E1; border-radius: 10px; text-align: center; font-size: 1.05em; }
+.vs-linear > div:not(.step) { display: flex; align-items: center; color: var(--sub); font-size: 1.2em; font-weight: 700; }
+.vs-loop { display: flex; flex-direction: column; gap: 8px; margin: 4px 0 8px; }
+.vs-loop .step { display: flex; align-items: center; gap: 10px; font-size: 0.88em; color: var(--ink); font-weight: 500; }
+.vs-loop .step b { font-weight: 800; color: var(--navy); }
 .vs-loop .step .n { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75em; }
 .vs-loop .step .arrow { margin-left: auto; color: var(--sub); font-size: 0.7em; font-style: italic; }
 .vs-loop .reback { text-align: center; color: #8A6E1A; font-size: 0.8em; font-weight: 700; margin-top: 2px; }
@@ -505,12 +507,12 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
 .ba-stat-strip .stat .k { font-size: 0.68em; color: var(--sub); margin-top: 4px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
 
 /* ─── Money slide (slide 9) ───────────────────────────── */
-.money-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 20px 0 26px; border-bottom: 2px solid var(--line); margin-bottom: 22px; }
+.money-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 28px 0 30px; border-bottom: 2px solid var(--line); margin-bottom: 22px; }
 .money-hero .item { text-align: center; }
-.money-hero .big { font-size: 4em; font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
+.money-hero .big { font-size: 5.4em; font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
 .money-hero .item.cost .big { color: var(--warn); }
 .money-hero .item.value .big { color: var(--green); }
-.money-hero .lbl { font-size: 0.75em; color: var(--sub); margin-top: 8px; font-style: italic; }
+.money-hero .lbl { font-size: 0.85em; color: var(--sub); margin-top: 12px; font-style: italic; }
 .money-punch {
   margin-top: 16px; padding: 16px 24px; text-align: center;
   background: var(--navy); color: white; border-radius: 10px; line-height: 1.4;
@@ -695,8 +697,8 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
 
   <div class="title-body">
     <h1 class="title-h1">Auto Shelf <span class="accent-italic">AI</span></h1>
-    <p class="title-tagline">Shelf intelligence that runs on any associate's phone &mdash; no robot fleet, no dedicated hardware.</p>
-    <p class="title-sub"><b>$40 in, $148K out</b> per store per year. <b>60% gross margin.</b> Three months from pilot to launch.</p>
+    <p class="title-tagline">Shelf intelligence on any associate's phone &mdash; no robots, no dedicated hardware.</p>
+    <p class="title-sub"><b>$200/month in, $12,333/month out</b> per store. <b>~77% gross margin.</b> Three months from pilot to launch.</p>
 
     <a class="title-link" href="https://marvyn.com/AutoShelfAI" target="_blank" rel="noopener"><span class="k">Slides</span> marvyn.com/AutoShelfAI <span class="arrow">&rarr;</span></a>
 
@@ -735,15 +737,15 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
     <div class="grid-3" style="gap: 14px;">
       <div class="kpi big">
         <div class="val">$1.73T</div>
-        <div class="lab">Lost globally / yr to inventory mismatch</div>
+        <div class="lab">lost globally per year to inventory mismatch</div>
       </div>
       <div class="kpi big">
         <div class="val">91%</div>
-        <div class="lab">of shoppers walk out rather than wait for a restock</div>
+        <div class="lab">of shoppers walk out instead of waiting</div>
       </div>
       <div class="kpi big">
         <div class="val">9%</div>
-        <div class="lab">of shoppers switch to a different store permanently</div>
+        <div class="lab">switch stores for good</div>
       </div>
     </div>
   </div>
@@ -767,52 +769,36 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
     <div class="brand">AutoShelfAI · Agentic-AI Challenge</div>
   </div>
 
-  <div class="grid-55-45">
-    <div style="position: relative; padding: 30px 30px 40px 50px;">
-      <div class="chart-2x2">
-        <div class="axis-y">Reliability &rarr;</div>
-        <div class="axis-x">Cost per store / year &rarr;</div>
-        <div class="gap-arrow-box">The gap nobody filled &darr;</div>
+  <div style="max-width: 760px; margin: 12px auto 0; position: relative; padding: 30px 30px 40px 50px;">
+    <div class="chart-2x2">
+      <div class="axis-y">Reliability &rarr;</div>
+      <div class="axis-x">Cost per store / year &rarr;</div>
+      <div class="gap-arrow-box">The gap nobody filled &darr;</div>
 
-        <div class="dot" style="bottom: 22%; left: 18%;">
-          <div class="circle"></div>
-          <div class="lbl">Manual audits</div>
-          <div class="sub-lbl">~$20K/yr labor · misses 30%</div>
-        </div>
-        <div class="dot" style="top: 14%; right: 24%;">
-          <div class="circle"></div>
-          <div class="lbl">Pensa</div>
-          <div class="sub-lbl">Custom CV &middot; enterprise pricing</div>
-        </div>
-        <div class="dot" style="top: 20%; right: 4%;">
-          <div class="circle"></div>
-          <div class="lbl">Simbe</div>
-          <div class="sub-lbl">Tally RaaS &middot; ~$1.5&ndash;2K/store/mo</div>
-        </div>
-        <div class="dot" style="top: 48%; right: 28%;">
-          <div class="circle"></div>
-          <div class="lbl">Bossa Nova</div>
-          <div class="sub-lbl">Contract ended, Nov 2020</div>
-        </div>
-        <div class="dot us" style="top: 20%; left: 22%;">
-          <div class="circle"></div>
-          <div class="lbl">&#9733; Us</div>
-          <div class="sub-lbl">$100/month · runs on a phone</div>
-        </div>
+      <div class="dot" style="bottom: 22%; left: 18%;">
+        <div class="circle"></div>
+        <div class="lbl">Manual audits</div>
+        <div class="sub-lbl">~$20K/yr labor · misses 30%</div>
       </div>
-    </div>
-    <div style="display: flex; flex-direction: column; justify-content: center;">
-      <div class="card card-gold">
-        <h3>Pensa's idea, rebuilt for 2026</h3>
-        <p style="font-size: 0.78em; margin-bottom: 8px;">Pensa proved the thesis: software beats robots for shelf auditing. But 14 years of custom CV training becomes a cost floor the market can't absorb.</p>
-        <ul class="check" style="margin-top: 6px;">
-          <li><b>Foundation models replace custom CV</b> &mdash; the VLM already knows every SKU Pensa had to teach from scratch</li>
-          <li><b>Agent reasoning replaces fixed pipelines</b> &mdash; adapts to dark aisles, fogged freezers, pushed-back products</li>
-          <li><b>Phone-first replaces dedicated cameras</b> &mdash; no install, no capex, same-day deploy</li>
-        </ul>
+      <div class="dot" style="top: 14%; right: 24%;">
+        <div class="circle"></div>
+        <div class="lbl">Pensa</div>
+        <div class="sub-lbl">Custom vision &middot; enterprise pricing</div>
       </div>
-      <div class="callout green" style="margin-top: 14px;">
-        <b>Same wedge, two orders of magnitude cheaper:</b> runs on equipment every store already owns, at a price any chain can absorb.
+      <div class="dot" style="top: 20%; right: 4%;">
+        <div class="circle"></div>
+        <div class="lbl">Simbe</div>
+        <div class="sub-lbl">Tally RaaS &middot; ~$1.5&ndash;2K/store/mo</div>
+      </div>
+      <div class="dot" style="top: 48%; right: 28%;">
+        <div class="circle"></div>
+        <div class="lbl">Bossa Nova</div>
+        <div class="sub-lbl">Contract ended, Nov 2020</div>
+      </div>
+      <div class="dot us" style="top: 20%; left: 22%;">
+        <div class="circle"></div>
+        <div class="lbl">&#9733; Us</div>
+        <div class="sub-lbl">$200/month · runs on a phone</div>
       </div>
     </div>
   </div>
@@ -836,45 +822,27 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
     <div class="brand">AutoShelfAI · Agentic-AI Challenge</div>
   </div>
 
-  <div class="grid-55-45">
-    <div>
-      <h4>Walmart &times; Bossa Nova timeline</h4>
-      <div class="timeline-vert">
-        <div class="tl-item">
-          <div class="year">2015</div>
-          <div class="event">Walmart begins testing <strong>Bossa Nova Robotics</strong> shelf-scanning robots in 50 stores.</div>
-        </div>
-        <div class="tl-item">
-          <div class="year">2019</div>
-          <div class="event">Expansion to ~<strong>500 stores</strong>. Robots touted as "3&times; faster than humans" at inventory.</div>
-        </div>
-        <div class="tl-item">
-          <div class="year">JAN 2020</div>
-          <div class="event">Walmart signals plans to <strong>double the fleet to 1,000 stores</strong> by year-end.</div>
-        </div>
-        <div class="tl-item end">
-          <div class="year">NOV 2020</div>
-          <div class="event"><strong>Walmart ends the contract</strong>, reversing the 1,000-store expansion. CEO John Furner cites <strong>shopper reaction</strong> to the 6-ft robots; humans handled inventory "about as effectively."</div>
-        </div>
-        <div class="tl-item end">
-          <div class="year">AFTERMATH</div>
-          <div class="event">Bossa Nova lays off <strong>about half its staff</strong> and pivots to seek other retail partners for its mobile robots and software.</div>
-        </div>
-      </div>
+  <h4>Walmart &times; Bossa Nova timeline</h4>
+  <div class="timeline-vert">
+    <div class="tl-item">
+      <div class="year">2015</div>
+      <div class="event">Walmart begins testing <strong>Bossa Nova Robotics</strong> shelf-scanning robots in 50 stores.</div>
     </div>
-    <div>
-      <div class="card card-red">
-        <h3>What Walmart told the market</h3>
-        <ul class="check" style="margin-top: 6px;">
-          <li><b>Cost didn't beat humans.</b> Associates got "similar results" at lower incremental cost.</li>
-          <li><b>Customer-experience regression.</b> Shoppers actively disliked navigating around 6-foot autonomous robots.</li>
-          <li><b>Hardware capex &amp; service.</b> Fleet depreciation, maintenance, battery swaps &mdash; an opex line every month.</li>
-          <li><b>SKU ceiling.</b> One unit per ~80,000 SKUs. A supercenter needs two.</li>
-        </ul>
-      </div>
-      <div class="callout navy" style="margin-top: 12px;">
-        <b>Our read:</b> the <i>robot</i> was the wrong form factor. The <i>idea</i> &mdash; automating shelf intelligence &mdash; is more right than ever. The form factor retail actually uses is the <b>phone already in every associate's pocket</b>.
-      </div>
+    <div class="tl-item">
+      <div class="year">2019</div>
+      <div class="event">Expansion to ~<strong>500 stores</strong>. Robots touted as "3&times; faster than humans" at inventory.</div>
+    </div>
+    <div class="tl-item">
+      <div class="year">JAN 2020</div>
+      <div class="event">Walmart signals plans to <strong>double the fleet to 1,000 stores</strong> by year-end.</div>
+    </div>
+    <div class="tl-item end">
+      <div class="year">NOV 2020</div>
+      <div class="event"><strong>Walmart ends the contract</strong>, reversing the 1,000-store expansion. CEO John Furner cites <strong>shopper reaction</strong> to the 6-ft robots; humans handled inventory "about as effectively."</div>
+    </div>
+    <div class="tl-item end">
+      <div class="year">AFTERMATH</div>
+      <div class="event">Bossa Nova lays off <strong>about half its staff</strong> and pivots to seek other retail partners for its mobile robots and software.</div>
     </div>
   </div>
 
@@ -905,33 +873,30 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
       <div class="gen-row"><span class="gen-label">Approach</span><span class="gen-val">Autonomous mobile hardware</span></div>
       <div class="gen-row"><span class="gen-label">Moat</span><span class="gen-val">Fleet capex and physical presence</span></div>
       <div class="gen-row"><span class="gen-label">Deploy time</span><span class="gen-val">Months</span></div>
-      <div class="gen-row"><span class="gen-label">Customer-facing</span><span class="gen-val">6-ft robots in aisles</span></div>
       <div class="gen-row"><span class="gen-label">Status</span><span class="gen-val">Walmart killed it (2020)</span></div>
     </div>
     <div class="gen-card muted">
       <div class="gen-eyebrow">Generation 2 · 2018&ndash;2025</div>
-      <h3>Custom-trained CV models</h3>
-      <div class="gen-examples">Pensa Systems, Trax</div>
-      <div class="gen-row"><span class="gen-label">Approach</span><span class="gen-val">Purpose-built vision, per-SKU training</span></div>
+      <h3>Custom-trained vision models</h3>
+      <div class="gen-examples">Pensa Systems</div>
+      <div class="gen-row"><span class="gen-label">Approach</span><span class="gen-val">Custom vision, trained per product</span></div>
       <div class="gen-row"><span class="gen-label">Moat</span><span class="gen-val">10+ years of training data</span></div>
       <div class="gen-row"><span class="gen-label">Deploy time</span><span class="gen-val">Weeks to months of catalog onboarding</span></div>
-      <div class="gen-row"><span class="gen-label">Architecture</span><span class="gen-val">Cloud-only, video and motion capture</span></div>
-      <div class="gen-row"><span class="gen-label">Cost driver</span><span class="gen-val">Amortizing custom R&amp;D (Pensa: $44.7M, 14 years)</span></div>
+      <div class="gen-row"><span class="gen-label">Cost driver</span><span class="gen-val">Heavy R&amp;D to recover (~$44M, 14 years)</span></div>
     </div>
     <div class="gen-card current">
       <div class="gen-eyebrow">Generation 3 · 2026 · AutoShelfAI</div>
-      <h3>Foundation models + agentic reasoning</h3>
-      <div class="gen-examples">Us</div>
-      <div class="gen-row"><span class="gen-label">Approach</span><span class="gen-val">Foundation VLM + classical CV + ReAct agent</span></div>
+      <h3>Modern AI + reasoning agent</h3>
+      <div class="gen-examples">Our product</div>
+      <div class="gen-row"><span class="gen-label">Approach</span><span class="gen-val">Modern vision AI + reasoning agent</span></div>
       <div class="gen-row"><span class="gen-label">Moat</span><span class="gen-val">Tiered-cost economics and reasoning explainability</span></div>
-      <div class="gen-row"><span class="gen-label">Deploy time</span><span class="gen-val">Same day &mdash; VLM already knows every SKU</span></div>
-      <div class="gen-row"><span class="gen-label">Architecture</span><span class="gen-val">Hybrid &mdash; on-device CV, cloud call only when uncertain</span></div>
-      <div class="gen-row"><span class="gen-label">Cost driver</span><span class="gen-val">Inference only · no sunk R&amp;D to amortize</span></div>
+      <div class="gen-row"><span class="gen-label">Deploy time</span><span class="gen-val">Same day &mdash; the AI already knows the products</span></div>
+      <div class="gen-row"><span class="gen-label">Cost driver</span><span class="gen-val">Inference only &middot; no sunk R&amp;D to amortize</span></div>
     </div>
   </div>
 
   <div class="callout" style="margin-top: 14px; font-style: italic;">
-    Pensa spent fourteen years and $44M teaching a system to recognize products. <b>Foundation models already know them.</b> That's the generational shift &mdash; and it rewrites the per-store economics.
+    The last generation spent fourteen years and $44M teaching a system to recognize products. <b>Modern AI already knows them.</b> That's the generational shift &mdash; and it rewrites the per-store economics.
   </div>
 
   <div class="sources-tray">
@@ -964,11 +929,11 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
     <div class="vs-col agent">
       <h4>Agentic loop (us)</h4>
       <div class="vs-loop">
-        <div class="step"><span class="n">1</span>Check image quality<span class="arrow">&rarr; if dark / foggy</span></div>
-        <div class="step"><span class="n">2</span>Auto-enhance the photo<span class="arrow">&rarr; then</span></div>
-        <div class="step"><span class="n">3</span>Detect products + gaps<span class="arrow">&rarr; if uncertain</span></div>
-        <div class="step"><span class="n">4</span>Ask vision AI by row<span class="arrow">&rarr; if low confidence</span></div>
-        <div class="step"><span class="n">5</span>Verify via web search<span class="arrow">&rarr; finalize</span></div>
+        <div class="step"><span class="n">1</span><b>Check image quality</b><span class="arrow">&rarr; if dark / foggy</span></div>
+        <div class="step"><span class="n">2</span><b>Enhance the photo</b><span class="arrow">&rarr; then</span></div>
+        <div class="step"><span class="n">3</span><b>Detect gaps</b><span class="arrow">&rarr; if uncertain</span></div>
+        <div class="step"><span class="n">4</span><b>Ask vision AI</b><span class="arrow">&rarr; if still unsure</span></div>
+        <div class="step"><span class="n">5</span><b>Verify via web</b><span class="arrow">&rarr; finalize</span></div>
         <div class="reback">&uarr; loops back as needed</div>
       </div>
       <p class="sub-caption">Adapts in real time. Skips what isn't needed. Asks for help when it doesn't know.</p>
@@ -976,6 +941,25 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
   </div>
 
   <div class="vs-banner">"The system makes a precise decision for every photo &mdash; no fixed rules, no fragile cascades."</div>
+</section>
+
+<!-- ═════════════════════ COUNCIL — REJECT FALSE POSITIVES ═════════════════════ -->
+<section>
+  <div class="frame-header">
+    <div>
+      <div class="eyebrow">Agents cross-check each other</div>
+      <h2>One proposes a gap. <span style="color: var(--green);">Others must agree &mdash; or it's rejected.</span></h2>
+    </div>
+    <div class="brand">AutoShelfAI · Agentic-AI Challenge</div>
+  </div>
+
+  <div style="text-align: center; margin-top: 6px;">
+    <img src="presentation_slides/assets/council_false_positives.png" alt="A council of agents independently verifying and rejecting false-positive gap detections on a beverage shelf" style="max-width: 100%; max-height: 520px; border-radius: 8px; border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(15,35,65,0.15);">
+  </div>
+
+  <div class="callout green" style="margin-top: 14px;">
+    <b>No finding stands on one agent's word.</b> A proposed gap only becomes an alert when a second agent independently confirms it. Here, dark bottles and stacked packaging looked like bare shelf &mdash; every candidate was rejected. <b>Zero false alerts sent.</b>
+  </div>
 </section>
 
 <!-- ═════════════════════ 7. HERO — FOGGY FREEZER ═════════════════════ -->
@@ -1018,7 +1002,7 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
         </div>
         <div class="stat">
           <div class="v gold">52 &rarr; 71</div>
-          <div class="k">Image contrast after CLAHE</div>
+          <div class="k">Image contrast restored</div>
         </div>
         <div class="stat">
           <div class="v">12&ndash;18s</div>
@@ -1029,7 +1013,7 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
   </div>
 
   <div class="sources-tray">
-    Photos: real shelf captures from a Mid-Atlantic grocery store (Giant, Greenbelt MD). Detector: YOLOv8m fine-tuned on SKU-110K. Enhancement: CLAHE on LAB lightness channel. "Naive pipeline" uses conf=0.5 on the raw image; our agent enhances first, then detects at conf=0.25.
+    Real shelf captures from a local grocery store. Left: basic detection on the raw foggy image. Right: our agent enhances the photo first, then detects.
   </div>
 </section>
 
@@ -1038,7 +1022,7 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
   <div class="frame-header">
     <div>
       <div class="eyebrow">How the economics hold up &mdash; ceiling vs. average</div>
-      <h2>One agentic loop. <span style="color: var(--green);">Even if every tier fires every scan, the ceiling is ~$95 &mdash; and practice lands near $40.</span></h2>
+      <h2>One agentic loop. <span style="color: var(--green);">Even if every tier fires every scan, the monthly ceiling is ~$95 &mdash; practice lands near $45/month.</span></h2>
     </div>
     <div class="brand">AutoShelfAI · Agentic-AI Challenge</div>
   </div>
@@ -1048,22 +1032,22 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
       <h4>Tiered inference ladder</h4>
       <div class="tier-row tier-1">
         <div class="tier-label">Tier 1</div>
-        <div class="tier-desc"><b>CV primitives</b> &mdash; detect_products · rows · gaps · occupancy</div>
+        <div class="tier-desc"><b>Basic detection</b> &mdash; find products, rows, and gaps on-device</div>
         <div class="tier-cost green-text">~$0.0002 / call</div>
       </div>
       <div class="tier-row tier-2">
         <div class="tier-label">Tier 2</div>
-        <div class="tier-desc"><b>Spatial reasoning</b> &mdash; zoom_in · depth verification · image enhancement</div>
+        <div class="tier-desc"><b>Spatial reasoning</b> &mdash; zoom, depth check, image enhancement</div>
         <div class="tier-cost accent-text">~$0.001 / call</div>
       </div>
       <div class="tier-row tier-3">
         <div class="tier-label">Tier 3</div>
-        <div class="tier-desc"><b>Vision-language model</b> &mdash; identify_gap_context · shelf_quality (foundation-model API)</div>
+        <div class="tier-desc"><b>Advanced vision AI</b> &mdash; ask a cloud model for gap context and shelf quality</div>
         <div class="tier-cost" style="color: var(--warn)">~$0.003 / call</div>
       </div>
       <div class="tier-row tier-4">
         <div class="tier-label">Tier 4</div>
-        <div class="tier-desc"><b>Web-grounded synthesis</b> &mdash; web search + VLM to resolve low-confidence gaps</div>
+        <div class="tier-desc"><b>Web-grounded synthesis</b> &mdash; web search + AI to resolve low-confidence gaps</div>
         <div class="tier-cost red-text">~$0.010 / call</div>
       </div>
     </div>
@@ -1073,9 +1057,9 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
         <h3>Upper bound: every tier fires every scan</h3>
         <table style="margin-top: 8px; font-size: 0.8em;">
           <tbody>
-            <tr><td>Tier 1 (CV primitives)</td><td class="num">$0.0002</td></tr>
+            <tr><td>Tier 1 (basic detection)</td><td class="num">$0.0002</td></tr>
             <tr><td>Tier 2 (spatial reasoning)</td><td class="num">$0.0010</td></tr>
-            <tr><td>Tier 3 (VLM call)</td><td class="num">$0.0030</td></tr>
+            <tr><td>Tier 3 (advanced AI)</td><td class="num">$0.0030</td></tr>
             <tr><td>Tier 4 (web-grounded)</td><td class="num">$0.0100</td></tr>
           </tbody>
           <tfoot>
@@ -1088,77 +1072,66 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
           <li>= <b>~$95 / store / month (ceiling)</b> &mdash; still ~85&times; cheaper than Trax</li>
         </ul>
       </div>
-      <div class="callout green" style="margin-top: 12px;">
-        <b>Ceiling, not average.</b> Clean captures short-circuit on Tier 1; Tier 3 fires ~50% of scans, Tier 4 ~12%. Real-world cost lands near <b>~$40/store/month</b> &mdash; the number the rest of the deck uses.
-      </div>
     </div>
   </div>
 
   <div class="sources-tray">
-    Per-call costs reflect current VLM pricing (2026). Tier 3 ~$0.003 matches Haiku/Gemini-Flash-class vision tokens (~1,500 input + 200 output &times; ~$1/M input, ~$5/M output). Tier 4 assumes one web-search call (~$0.005 via Google Programmable Search / Bing) + one short VLM synthesis (~$0.005). Tier 1 and 2 are on-device / lightweight server compute amortized to per-call rates.
+    Per-call costs reflect current 2026 cloud-AI pricing (Haiku / Gemini Flash class). Tier 4 assumes one web search + one short AI synthesis call. Tier 1 and 2 run on-device.
   </div>
 </section>
 
-<!-- ═════════════════════ 9. $40 IN. $148K OUT. ═════════════════════ -->
+<!-- ═════════════════════ 9. $45 IN. $12,333 OUT. ═════════════════════ -->
 <section>
   <div class="frame-header">
     <div>
       <span class="crit-ribbon">The money slide</span>
-      <h2><span style="color: var(--warn);">$40 in.</span> <span style="color: var(--green);">$148K out.</span></h2>
+      <h2><span style="color: var(--warn);">$200/month in.</span> <span style="color: var(--green);">$12,333/month out.</span></h2>
     </div>
     <div class="brand">AutoShelfAI · Agentic-AI Challenge</div>
   </div>
 
   <div class="callout navy" style="margin-bottom: 18px;">
-    <b>Trax charges ~$8,000 per store per month.</b> Pensa quotes enterprise-tier custom. <span style="color: var(--gold); font-weight: 700;">We price at $100 &mdash; 80&times; cheaper, and still 60% gross margin.</span>
+    <b>Trax charges ~$8,000/month per store.</b> Pensa quotes enterprise-tier custom. <span style="color: var(--gold); font-weight: 700;">We price at $200/month &mdash; 40&times; cheaper, and ~77% gross margin.</span>
   </div>
 
   <div class="money-hero">
     <div class="item cost">
-      <div class="big">$40</div>
-      <div class="lbl">per store, per month &mdash; what it costs us</div>
+      <div class="big">$200</div>
+      <div class="lbl">per store, per month &mdash; what the retailer pays</div>
     </div>
     <div class="item value">
-      <div class="big">$148K</div>
-      <div class="lbl">per store, per year &mdash; what the retailer recovers</div>
+      <div class="big">$12,333</div>
+      <div class="lbl">per store, per month &mdash; what the retailer recovers</div>
     </div>
   </div>
 
   <div class="grid-2" style="gap: 40px;">
     <div>
-      <h4>Our cost / store / month</h4>
+      <h4>What the retailer pays / month</h4>
       <table>
         <tbody>
-          <tr><td>Tool calls (~6,000 scans/month, realistic average)</td><td class="num">$30</td></tr>
-          <tr><td>Hosting + monitoring</td><td class="num">$10</td></tr>
-          <tr><td>Phone hardware (already in-store)</td><td class="num">$0</td></tr>
+          <tr><td>AutoShelfAI subscription</td><td class="num">$200</td></tr>
         </tbody>
         <tfoot>
-          <tr><td><b>Total marginal cost (avg)</b></td><td class="num"><b>$40</b></td></tr>
+          <tr><td><b>Total monthly spend</b></td><td class="num"><b>$200</b></td></tr>
         </tfoot>
       </table>
     </div>
     <div>
-      <h4>Customer recovery / store / year</h4>
+      <h4>What the retailer recovers / month</h4>
       <table>
         <tbody>
-          <tr><td>Lost sales recovered (10% &times; $1.48M)</td><td class="num">$148K</td></tr>
-          <tr><td>Audit labor saved (75% of $14.6K)</td><td class="num">$15K</td></tr>
+          <tr><td>Lost sales recovered (conservative 10% of $1.48M/yr out-of-stock)</td><td class="num">$12,333</td></tr>
         </tbody>
         <tfoot>
-          <tr><td><b>Total annual value</b></td><td class="num"><b>$163K</b></td></tr>
+          <tr><td><b>Total monthly value</b></td><td class="num"><b>$12,333</b></td></tr>
         </tfoot>
       </table>
     </div>
   </div>
 
-  <div class="money-punch">
-    <div class="row1">Price: <span class="em">$100 / month per store</span> &nbsp;·&nbsp; Gross margin: <span class="em">60%</span> &nbsp;·&nbsp; Customer payback: <span class="em">~3 days</span> &nbsp;·&nbsp; ROI: <span class="em">~130&times;</span> per year</div>
-    <div class="row2">Why $100? <span class="em">2.5&times; our marginal cost, 1/80 of Trax</span> &mdash; defensible SaaS pricing, not a discount.</div>
-  </div>
-
   <div class="sources-tray">
-    Revenue anchor: <b>$37M</b> avg US supermarket (FMI 2024). Out-of-stock loss: 4% (Corsten &amp; Gruen 2004, canonical). Recovery: 10% (industry CV studies show 20&ndash;40%; we model half the low end). Trax reference: ~$8K/store/month enterprise contracts.
+    Revenue anchor: <b>$37M</b> avg US supermarket (FMI 2024). Out-of-stock loss: 4% (Corsten &amp; Gruen 2004, canonical). Recovery: 10% (industry studies show 20&ndash;40%; we model half the low end). Trax reference: ~$8K/store/month enterprise contracts.
   </div>
 </section>
 
@@ -1172,62 +1145,49 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
     <div class="brand">AutoShelfAI · Agentic-AI Challenge</div>
   </div>
 
-  <div class="grid-55-45">
-    <div>
-      <div class="scale-timeline">
-        <div class="scale-line"></div>
-        <div class="scale-grid">
-          <div class="scale-ms">
-            <div class="dot"></div>
-            <div class="when">Month 1</div>
-            <div class="what">Pilot</div>
-            <div class="who">5 stores · 1 regional chain</div>
-            <div class="rows">
-              <div class="row-lbl build">Build</div>
-              <div class="row-body">Planogram ingest v1, mobile capture app, real-time UI</div>
-              <div class="row-lbl validate">Validate</div>
-              <div class="row-body">Real-world precision, ops friction, associate UX</div>
-            </div>
-          </div>
-          <div class="scale-ms">
-            <div class="dot"></div>
-            <div class="when">Months 2&ndash;3</div>
-            <div class="what">Beta</div>
-            <div class="who">50 stores · paid at $100/month</div>
-            <div class="rows">
-              <div class="row-lbl build">Build</div>
-              <div class="row-body">Manager dashboard, alert routing, planogram-aware gaps</div>
-              <div class="row-lbl validate">Validate</div>
-              <div class="row-body">Pricing elasticity, multi-store ops, churn drivers</div>
-            </div>
-          </div>
-          <div class="scale-ms">
-            <div class="dot"></div>
-            <div class="when">Month 4+</div>
-            <div class="what">Launch</div>
-            <div class="who">500 stores · 2 enterprise deals</div>
-            <div class="rows">
-              <div class="row-lbl build">Build</div>
-              <div class="row-body">Multi-tenant infra, ERP write-back, SOC 2 compliance</div>
-              <div class="row-lbl validate">Validate</div>
-              <div class="row-body">Enterprise sales motion, integration patterns</div>
-            </div>
-          </div>
+  <div class="scale-timeline">
+    <div class="scale-line"></div>
+    <div class="scale-grid">
+      <div class="scale-ms">
+        <div class="dot"></div>
+        <div class="when">Month 1</div>
+        <div class="what">Pilot</div>
+        <div class="who">5 stores · 1 regional chain</div>
+        <div class="rows">
+          <div class="row-lbl build">Build</div>
+          <div class="row-body">Planogram ingest v1, mobile capture app, real-time UI</div>
+          <div class="row-lbl validate">Validate</div>
+          <div class="row-body">Real-world precision, ops friction, associate UX</div>
         </div>
       </div>
-      <div class="callout gold" style="margin-top: 18px;">
-        Each phase ships <b>working software</b> and produces <b>measurable learning</b> &mdash; not just headcount growth. <b>60% gross margin</b> from day one of paid beta.
+      <div class="scale-ms">
+        <div class="dot"></div>
+        <div class="when">Months 2&ndash;3</div>
+        <div class="what">Beta</div>
+        <div class="who">50 stores · paid at $200/month</div>
+        <div class="rows">
+          <div class="row-lbl build">Build</div>
+          <div class="row-body">Manager dashboard, alert routing, planogram-aware gaps</div>
+          <div class="row-lbl validate">Validate</div>
+          <div class="row-body">Pricing elasticity, multi-store ops, churn drivers</div>
+        </div>
+      </div>
+      <div class="scale-ms">
+        <div class="dot"></div>
+        <div class="when">Month 4+</div>
+        <div class="what">Launch</div>
+        <div class="who">500 stores · 2 enterprise deals</div>
+        <div class="rows">
+          <div class="row-lbl build">Build</div>
+          <div class="row-body">Multi-tenant infra, ERP write-back, SOC 2 compliance</div>
+          <div class="row-lbl validate">Validate</div>
+          <div class="row-body">Enterprise sales motion, integration patterns</div>
+        </div>
       </div>
     </div>
-    <div>
-      <h4>Unit economics by deployment size</h4>
-      <div class="chart-wrap" style="height: 210px; margin-top: 6px;">
-        <canvas id="fleetChart"></canvas>
-      </div>
-      <div class="callout green" style="margin-top: 10px; font-size: 0.75em;">
-        <b>At 500 stores:</b> ~<b>$74M/year</b> recovered revenue against ~<b>$0.6M/year</b> customer subscription spend (our COGS: ~$0.24M). That's a ~<b>10% out-of-stock reduction</b> across the fleet, compounding monthly.
-      </div>
-    </div>
+  </div>
+  <div class="callout gold" style="margin-top: 18px;">
+    Each phase ships <b>working software</b> and <b>measurable learning</b>. <b>~77% gross margin</b> from day one of paid beta.
   </div>
 </section>
 
@@ -1244,23 +1204,23 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
   <div class="grid-2" style="gap: 16px;">
     <div class="risk risk-red">
       <h4>! False positives waste associate time</h4>
-      <p>A naive system drowns a store manager in notifications and erodes trust &mdash; the exact failure mode that killed Bossa Nova's perceived value at Walmart.</p>
-      <div class="mitig"><b>Mitigation:</b> every refill task requires a 1-tap human accept. The agent recommends, never commands. <b>Alert fatigue guardrails:</b> severity-tiered refill checklist + per-shift cap + revenue-weighted ranking baked into the report schema.</div>
+      <p>A noisy system drowns a manager in notifications and erodes trust &mdash; the failure mode that killed Bossa Nova's value at Walmart.</p>
+      <div class="mitig"><b>Mitigation:</b> every refill task needs a 1-tap human accept. Severity tiers + per-shift cap + revenue-weighted ranking keep alerts focused.</div>
     </div>
     <div class="risk risk-warn">
       <h4>! Customer privacy &mdash; faces in shelf photos</h4>
-      <p>Shelf captures occasionally include customers in the background. Policy and perception both matter.</p>
-      <div class="mitig"><b>Mitigation:</b> faces blurred on-device before any image leaves the phone. Photos stored encrypted, deleted after audit. GDPR and CCPA compliant by default; union-ready deployment protocol on request.</div>
+      <p>Shelf captures sometimes include customers in the background. Policy and perception both matter.</p>
+      <div class="mitig"><b>Mitigation:</b> faces blurred on-device before any image leaves the phone. Photos encrypted and deleted after audit. GDPR and CCPA compliant by default.</div>
     </div>
     <div class="risk risk-purple">
       <h4>! "It's going to take my job"</h4>
       <p>The obvious objection. Our answer isn't "it won't" &mdash; it's "here's what your job becomes."</p>
-      <div class="mitig"><b>Mitigation:</b> associates redeploy from audit drudgery to customer-facing work &mdash; the exact activity-based shift McKinsey recommends. Pilot will validate associate preference directly.</div>
+      <div class="mitig"><b>Mitigation:</b> associates shift from audit drudgery to customer-facing work. Pilot will validate associate preference directly.</div>
     </div>
     <div class="risk risk-accent">
-      <h4>! Graceful degradation when the LLM is down</h4>
-      <p>Enterprise reliability can't depend on a third-party API's uptime. If the VLM is unreachable, the audit must still happen.</p>
-      <div class="mitig"><b>Mitigation:</b> <code>fallback_report()</code> returns a full audit from the agent's lowest-cost tools only &mdash; no API call, same loop. Dehaze + CLAHE for bad photos. <b>Enterprise reliability is a first-class path, not an afterthought.</b></div>
+      <h4>! Still works when the cloud AI is down</h4>
+      <p>Enterprise reliability can't depend on a third-party service's uptime. If the cloud AI is unreachable, the audit must still happen.</p>
+      <div class="mitig"><b>Mitigation:</b> a local-only audit still runs using the lightweight on-device tools &mdash; no cloud call, same loop. Built-in image cleanup for bad photos. <b>Reliability is a first-class path, not an afterthought.</b></div>
     </div>
   </div>
 </section>
@@ -1280,36 +1240,36 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
       <h4>Upstream &mdash; what we ingest</h4>
       <div class="card card-accent" style="margin-bottom: 10px;">
         <h3><span class="icon" style="background: var(--accent)">&uarr;</span>Planogram</h3>
-        <p><b>Blue Yonder · RELEX</b> &mdash; tells us which size belongs in that shelf position, so we move from guessing brands to knowing exact SKUs.</p>
+        <p>Tells us which product belongs in which shelf position, so we move from guessing brands to knowing exact items.</p>
       </div>
       <div class="card card-accent" style="margin-bottom: 10px;">
-        <h3><span class="icon" style="background: var(--accent)">&uarr;</span>POS / sales velocity</h3>
-        <p><b>NCR · Toast</b> &mdash; revenue-weight every gap so the refill checklist is ranked by dollars, not alphabetical order.</p>
+        <h3><span class="icon" style="background: var(--accent)">&uarr;</span>POS / sales data</h3>
+        <p>Revenue-weight every gap so the refill checklist is ranked by dollars, not alphabetical order.</p>
       </div>
       <div class="card card-accent">
         <h3><span class="icon" style="background: var(--accent)">&uarr;</span>Warehouse inventory</h3>
-        <p><b>SAP · Manhattan Associates</b> &mdash; distinguish a shelf-replenishment problem from a stockroom-empty problem.</p>
+        <p>Distinguish a shelf-replenishment problem from a stockroom-empty problem.</p>
       </div>
     </div>
     <div>
       <h4>Downstream &mdash; what we feed</h4>
       <div class="card card-gold" style="margin-bottom: 10px;">
         <h3><span class="icon" style="background: var(--gold)">&darr;</span>Associate task app</h3>
-        <p><b>Zebra Reflexis · Theatro</b> &mdash; every gap becomes a task in the app they already use. Structured JSON (bbox + quantity_needed + unit_price) mirrors what those systems accept.</p>
+        <p>Every gap becomes a task in the app associates already use &mdash; with product, location, and quantity pre-filled.</p>
       </div>
       <div class="card card-gold" style="margin-bottom: 10px;">
         <h3><span class="icon" style="background: var(--gold)">&darr;</span>Auto-reorder</h3>
-        <p><b>SAP S/4HANA</b> &mdash; chronic out-of-stock items auto-trigger replenishment in the ERP they already run.</p>
+        <p>Chronic out-of-stock items auto-trigger replenishment in the system the store already runs.</p>
       </div>
       <div class="card card-gold">
-        <h3><span class="icon" style="background: var(--gold)">&darr;</span>Manager dashboard and loss prevention</h3>
-        <p><b>Power BI · Looker</b> &mdash; aggregated on-shelf availability per store; loss-prevention analytics roll into existing tools.</p>
+        <h3><span class="icon" style="background: var(--gold)">&darr;</span>Manager dashboard</h3>
+        <p>Per-store shelf availability and loss-prevention analytics roll into tools managers already check.</p>
       </div>
     </div>
   </div>
 
   <div class="callout gold" style="margin-top: 16px;">
-    <b>If the store has a planogram, we use it. If they don't, we build one from photos.</b> Either way, we ship on day one &mdash; same agent, same phone, same price. <span class="gold-text"><b>Procurement loves us. IT doesn't fight us.</b></span>
+    <b>If the store has a planogram, we use it. If not, we build one from photos.</b> Same system, same price, day-one ship. <span class="gold-text"><b>Procurement loves us. IT doesn't fight us.</b></span>
   </div>
 </section>
 
@@ -1324,23 +1284,23 @@ ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color
   </div>
 
   <div class="closing-hero">
-    The shelf-auditing playbook already exists &mdash; <b>Pensa proved software beats robots.</b> Foundation models and agent reasoning rewrite the cost structure, and this is the window to ship a 2026-native version before the incumbents can retool.
-    <div style="margin-top: 10px; font-size: 0.9em; color: var(--navy);"><b>Same agent, three adjacencies next:</b> promo end-cap compliance &middot; price-tag accuracy &middot; cold-chain condition monitoring.</div>
+    <b>Software beats robots &mdash; that's been proven.</b> Modern AI rewrites the cost, and this is the window to ship before incumbents retool.
+    <div style="margin-top: 10px; font-size: 0.9em; color: var(--navy);"><b>Same system, three next steps:</b> promo displays &middot; price tags &middot; cold-chain checks.</div>
   </div>
 
   <div class="grid-3" style="gap: 18px;">
     <div class="card card-accent closing-card">
       <h3>The recap</h3>
       <ul class="check" style="margin-top: 4px;">
-        <li>$40 compute in, $148K recovered out &mdash; per store, per year</li>
-        <li>60% gross margin, ~3-day customer payback</li>
+        <li>$200/month in, $12,333/month recovered &mdash; per store</li>
+        <li>~77% gross margin, same-day customer payback</li>
         <li>Three months from pilot to launch</li>
         <li>Runs on every associate's phone &mdash; no hardware</li>
       </ul>
     </div>
     <div class="card card-gold closing-card">
       <h3>The ask</h3>
-      <p><b>One pilot partner</b> &mdash; a regional chain of 5&ndash;10 stores willing to let us prove the $40-in, $148K-out economics in their aisles.</p>
+      <p><b>One pilot partner</b> &mdash; a regional chain of 5&ndash;10 stores willing to let us prove the $200-in, $12,333-out economics in their aisles.</p>
       <p style="margin-top: 8px;"><b>Mentors</b> in retail enterprise sales and planogram-aware deployment.</p>
     </div>
     <div class="card closing-card">
@@ -1397,7 +1357,7 @@ function drawFleet() {
         },
         {
           label: 'Customer spend ($M/year)',
-          data: [0.006, 0.06, 0.6],
+          data: [0.012, 0.12, 1.2],
           backgroundColor: 'rgba(201,162,39,0.8)',
           borderColor: '#C9A227',
           borderWidth: 2
