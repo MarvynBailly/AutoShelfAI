@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Smart Shelf Auditor — UMD Agentic-AI Challenge 2026</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+
+<style>
+:root {
+  --navy:    #0F2341;
+  --navy-2:  #1A3763;
+  --accent:  #2E86AB;
+  --gold:    #C9A227;
+  --red:     #D7263D;
+  --green:   #1B998B;
+  --purple:  #7B2D8E;
+  --warn:    #F46036;
+  --ink:     #0E1A2B;
+  --sub:     #516477;
+  --line:    #E2E8EE;
+  --bg:      #F7F9FC;
+  --card:    #FFFFFF;
+}
+
+.reveal { font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif; font-weight: 400; color: var(--ink); }
+.reveal .slides { text-align: left; }
+.reveal .slides section { padding: 24px 56px; }
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--navy); letter-spacing: -0.01em; text-transform: none; margin: 0 0 16px 0; }
+.reveal h1 { font-size: 2.6em; line-height: 1.05; }
+.reveal h2 { font-size: 1.9em; line-height: 1.1; }
+.reveal h3 { font-size: 1.35em; }
+.reveal h4 { font-size: 1.05em; color: var(--sub); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.45; }
+.reveal code { font-family: 'JetBrains Mono', monospace; background: #EEF2F7; padding: 1px 6px; border-radius: 4px; font-size: 0.85em; }
+
+html.print-pdf .reveal .slides section { page-break-after: always; }
+
+.reveal .slide-background-content {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F7F9FC 100%);
+}
+
+/* ─── Frame chrome ────────────────────────────────────── */
+.frame-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 10px; margin-bottom: 20px;
+  border-bottom: 3px solid var(--navy);
+}
+.frame-header .eyebrow {
+  font-size: 0.68em; text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--accent); font-weight: 600;
+}
+.frame-header .brand { font-size: 0.65em; color: var(--sub); font-weight: 500; }
+
+/* ─── Title slide ─────────────────────────────────────── */
+.title-slide {
+  background: linear-gradient(135deg, #0F2341 0%, #1A3763 60%, #244E8A 100%) !important;
+  color: #FFFFFF !important;
+  padding: 80px !important;
+  display: flex; flex-direction: column; justify-content: center;
+  height: 100%;
+  position: relative; overflow: hidden;
+}
+.title-slide::before {
+  content: ''; position: absolute; right: -120px; top: -120px;
+  width: 520px; height: 520px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,162,39,0.25) 0%, rgba(201,162,39,0) 70%);
+}
+.title-slide::after {
+  content: ''; position: absolute; left: -80px; bottom: -80px;
+  width: 360px; height: 360px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(46,134,171,0.3) 0%, rgba(46,134,171,0) 70%);
+}
+.title-slide .tag { font-size: 0.72em; color: var(--gold); font-weight: 600;
+                    letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 22px; z-index: 2; position: relative; }
+.title-slide h1 { color: #FFFFFF; font-size: 3.4em; line-height: 1.02; margin-bottom: 14px; z-index: 2; position: relative; }
+.title-slide .sub { font-size: 1.15em; color: #E5D9A6; font-weight: 400; font-style: italic; margin-bottom: 28px; z-index: 2; position: relative; max-width: 40ch; }
+.title-slide .subline { font-size: 0.95em; color: #C8D4E0; font-weight: 400; margin-bottom: 50px; z-index: 2; position: relative; }
+.title-slide .meta { display: flex; gap: 30px; font-size: 0.7em; color: #A8B6C7; z-index: 2; position: relative; }
+.title-slide .meta div strong { color: #FFFFFF; display: block; font-size: 1.15em; margin-bottom: 3px; }
+
+/* ─── Layout helpers ──────────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+.grid-55-45 { display: grid; grid-template-columns: 55% 1fr; gap: 28px; }
+.grid-60-40 { display: grid; grid-template-columns: 60% 1fr; gap: 28px; }
+.grid-45-55 { display: grid; grid-template-columns: 45% 1fr; gap: 28px; }
+
+/* ─── Cards / blocks ──────────────────────────────────── */
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 18px 20px; box-shadow: 0 2px 6px rgba(15,35,65,0.05);
+}
+.card-accent { border-top: 4px solid var(--accent); }
+.card-gold   { border-top: 4px solid var(--gold); }
+.card-red    { border-top: 4px solid var(--red); }
+.card-green  { border-top: 4px solid var(--green); }
+.card-purple { border-top: 4px solid var(--purple); }
+.card-warn   { border-top: 4px solid var(--warn); }
+
+.card h3 { font-size: 1em; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.card .icon { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center;
+              background: var(--navy); color: white; border-radius: 6px; font-size: 0.7em; font-weight: 700; }
+.card p { font-size: 0.72em; line-height: 1.45; color: var(--ink); margin: 0 0 6px 0; }
+.card .result { display: inline-block; margin-top: 8px; padding: 4px 10px; font-size: 0.68em;
+                border-radius: 20px; font-weight: 600; }
+.result.accent { background: rgba(46,134,171,0.12); color: var(--accent); }
+.result.green  { background: rgba(27,153,139,0.14); color: var(--green); }
+.result.purple { background: rgba(123,45,142,0.12); color: var(--purple); }
+.result.warn   { background: rgba(244,96,54,0.15); color: var(--warn); }
+.result.gold   { background: rgba(201,162,39,0.15); color: #8A6E1A; }
+
+/* ─── Stats / KPIs ────────────────────────────────────── */
+.kpi { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+       padding: 16px; text-align: center; }
+.kpi .val { font-size: 1.9em; font-weight: 800; color: var(--navy); line-height: 1; }
+.kpi .lab { font-size: 0.68em; color: var(--sub); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+.kpi.big .val { font-size: 2.8em; color: var(--red); }
+.kpi.good .val { color: var(--green); }
+.kpi.gold .val { color: var(--gold); }
+
+.big-number {
+  background: linear-gradient(135deg, var(--red) 0%, #B71F33 100%);
+  color: white; padding: 24px 28px; border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(215,38,61,0.25);
+}
+.big-number .huge { font-size: 3em; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+.big-number .cap  { font-size: 0.75em; margin-top: 8px; opacity: 0.92; }
+
+/* ─── Tables ──────────────────────────────────────────── */
+.reveal table { font-size: 0.75em; border-collapse: collapse; width: 100%; }
+.reveal table thead { background: var(--navy); color: white; }
+.reveal table th, .reveal table td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--line); }
+.reveal table tr:nth-child(even) { background: #F7F9FC; }
+.reveal table td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.reveal table tfoot td { font-weight: 700; border-top: 2px solid var(--navy); background: #EEF2F7; }
+.reveal table tr.headline td { background: rgba(201,162,39,0.12); font-weight: 700; }
+
+/* ─── Highlight callout ───────────────────────────────── */
+.callout {
+  background: linear-gradient(90deg, rgba(201,162,39,0.08) 0%, rgba(201,162,39,0.02) 100%);
+  border-left: 4px solid var(--gold); padding: 14px 18px; border-radius: 6px;
+  font-size: 0.82em; line-height: 1.5;
+}
+.callout.red   { background: linear-gradient(90deg, rgba(215,38,61,0.08) 0%, rgba(215,38,61,0.02) 100%);
+                 border-left-color: var(--red); }
+.callout.green { background: linear-gradient(90deg, rgba(27,153,139,0.08) 0%, rgba(27,153,139,0.02) 100%);
+                 border-left-color: var(--green); }
+.callout.navy  { background: linear-gradient(90deg, rgba(15,35,65,0.08) 0%, rgba(15,35,65,0.02) 100%);
+                 border-left-color: var(--navy); }
+
+/* ─── Pipeline / flow ─────────────────────────────────── */
+.flow { display: flex; align-items: stretch; gap: 10px; }
+.flow .step { flex: 1; background: var(--card); border: 2px solid var(--line); border-radius: 8px;
+              padding: 12px 10px; text-align: center; font-size: 0.72em; }
+.flow .step .n { display: block; font-size: 0.62em; color: var(--sub); font-weight: 700;
+                 text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+.flow .step .t { font-weight: 700; color: var(--navy); display: block; margin-bottom: 4px; }
+.flow .step .d { font-size: 0.85em; color: var(--sub); font-weight: 400; display: block; margin-top: 4px; }
+.flow .step.s1 { border-color: var(--navy); }
+.flow .step.s2 { border-color: var(--accent); }
+.flow .step.s3 { border-color: var(--green); }
+.flow .step.s4 { border-color: var(--purple); }
+.flow .step.s5 { border-color: var(--red); }
+.flow .arrow { display: flex; align-items: center; color: var(--sub); font-size: 1.3em; }
+
+/* ─── Tier pyramid ────────────────────────────────────── */
+.tier-row { display: grid; grid-template-columns: 100px 1fr 150px; gap: 16px; align-items: center;
+            padding: 12px 16px; border-radius: 8px; margin-bottom: 8px; }
+.tier-row .tier-label { font-weight: 800; color: var(--navy); }
+.tier-row .tier-desc { font-size: 0.78em; color: var(--ink); }
+.tier-row .tier-cost { text-align: right; font-weight: 700; font-size: 0.85em; }
+.tier-1 { background: rgba(27,153,139,0.1);  border-left: 5px solid var(--green); }
+.tier-2 { background: rgba(46,134,171,0.1);  border-left: 5px solid var(--accent); width: 92%; margin-left: auto; }
+.tier-3 { background: rgba(244,96,54,0.1);   border-left: 5px solid var(--warn); width: 78%; margin-left: auto; }
+.tier-4 { background: rgba(215,38,61,0.1);   border-left: 5px solid var(--red); width: 62%; margin-left: auto; }
+
+/* ─── Supply chain ────────────────────────────────────── */
+.supply-chain { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin: 10px 0; }
+.supply-node { flex: 1; text-align: center; padding: 14px 6px; border-radius: 8px; font-size: 0.75em; font-weight: 600; }
+.supply-arr { color: var(--sub); font-size: 1.3em; }
+.supply-node.here { background: var(--navy); color: white; transform: scale(1.08); box-shadow: 0 4px 14px rgba(15,35,65,0.25); }
+.supply-node:not(.here) { background: var(--card); border: 1px solid var(--line); color: var(--navy); }
+
+/* ─── Risk grid ───────────────────────────────────────── */
+.risk { padding: 14px 16px; border-radius: 10px; background: var(--card); border: 1px solid var(--line); border-top: 4px solid; }
+.risk h4 { color: inherit; text-transform: none; letter-spacing: 0; font-weight: 700; font-size: 0.9em; margin-bottom: 6px; }
+.risk p { font-size: 0.72em; margin: 4px 0; }
+.risk .mitig { font-size: 0.72em; color: var(--navy); border-top: 1px dashed var(--line); padding-top: 6px; margin-top: 8px; }
+.risk .mitig b { color: var(--green); }
+.risk-red    { border-top-color: var(--red); }
+.risk-red h4 { color: var(--red); }
+.risk-warn   { border-top-color: var(--warn); }
+.risk-warn h4 { color: var(--warn); }
+.risk-purple { border-top-color: var(--purple); }
+.risk-purple h4 { color: var(--purple); }
+.risk-accent { border-top-color: var(--accent); }
+.risk-accent h4 { color: var(--accent); }
+.risk-green  { border-top-color: var(--green); }
+.risk-green h4 { color: var(--green); }
+.risk-gold   { border-top-color: var(--gold); }
+.risk-gold h4 { color: #8A6E1A; }
+
+/* ─── Criterion ribbon ───────────────────────────────── */
+.crit-ribbon { display: inline-block; background: var(--navy); color: white;
+               padding: 4px 12px; border-radius: 20px; font-size: 0.65em;
+               font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+
+/* ─── Closing ─────────────────────────────────────────── */
+.end-slide {
+  background: linear-gradient(135deg, #0F2341 0%, #1A3763 100%) !important;
+  color: #FFFFFF !important; display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start; height: 100%; padding: 70px !important;
+}
+.end-slide h1 { color: white; font-size: 2.8em; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 14px; }
+.end-slide .sub { font-size: 1em; color: var(--gold); margin: 10px 0 24px 0; font-weight: 500; max-width: 90ch; line-height: 1.45; font-style: italic; }
+.end-slide .links { display: flex; gap: 14px; font-size: 0.65em; flex-wrap: wrap; }
+.end-slide .link-card {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px; padding: 12px 16px; backdrop-filter: blur(10px); min-width: 180px;
+}
+.end-slide .link-card strong { color: var(--gold); display: block; margin-bottom: 4px; font-size: 1.1em; }
+
+/* ─── Misc ────────────────────────────────────────────── */
+.small { font-size: 0.72em !important; }
+.tiny  { font-size: 0.62em !important; color: var(--sub); }
+.mono  { font-family: 'JetBrains Mono', monospace; }
+.green-text { color: var(--green); font-weight: 600; }
+.red-text   { color: var(--red);   font-weight: 600; }
+.accent-text { color: var(--accent); font-weight: 600; }
+.gold-text  { color: #8A6E1A; font-weight: 600; }
+.nowrap { white-space: nowrap; }
+ul.check { list-style: none; padding: 0; }
+ul.check li { padding-left: 22px; position: relative; margin-bottom: 6px; }
+ul.check li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--green); font-weight: 800; }
+
+/* ─── Chart.js container sizing ───────────────────────── */
+.chart-wrap { position: relative; height: 240px; width: 100%; }
+.chart-wrap-sm { position: relative; height: 200px; width: 100%; }
+
+/* ─── Progress bar ────────────────────────────────────── */
+.reveal .progress { color: var(--gold); height: 4px; }
+.reveal .controls { color: var(--navy); }
+
+/* ─── Timeline (for robot history) ────────────────────── */
+.timeline-vert { position: relative; padding-left: 28px; }
+.timeline-vert::before {
+  content: ''; position: absolute; left: 6px; top: 6px; bottom: 6px;
+  width: 2px; background: var(--line);
+}
+.tl-item { position: relative; padding: 8px 0 10px 0; }
+.tl-item::before {
+  content: ''; position: absolute; left: -27px; top: 14px;
+  width: 10px; height: 10px; border: 2px solid var(--accent);
+  background: white; border-radius: 50%;
+}
+.tl-item.end::before { background: var(--red); border-color: var(--red); }
+.tl-item .year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7em; color: var(--accent);
+  letter-spacing: 0.1em; font-weight: 700;
+}
+.tl-item.end .year { color: var(--red); }
+.tl-item .event { font-size: 0.78em; color: var(--ink); line-height: 1.4; margin-top: 2px; }
+.tl-item .event strong { color: var(--navy); font-weight: 700; }
+
+/* ─── ROI steps ───────────────────────────────────────── */
+.roi-step {
+  display: grid; grid-template-columns: 32px 1fr auto;
+  padding: 10px 0; gap: 16px;
+  border-bottom: 1px solid var(--line); align-items: center;
+}
+.roi-step:last-child { border-bottom: none; }
+.roi-step .n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75em; color: var(--accent); font-weight: 700;
+}
+.roi-step .desc { font-size: 0.78em; color: var(--ink); line-height: 1.35; }
+.roi-step .desc strong { color: var(--navy); }
+.roi-step .val {
+  font-size: 1.05em; color: var(--navy); font-weight: 800;
+  white-space: nowrap;
+}
+.roi-step.final {
+  padding: 14px 0; border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  background: rgba(201,162,39,0.05);
+  padding-left: 8px; padding-right: 8px;
+}
+.roi-step.final .val { color: var(--green); font-size: 1.35em; }
+.roi-step .tag {
+  display: inline-block; padding: 1px 6px;
+  background: rgba(46,134,171,0.12); color: var(--accent);
+  font-family: 'JetBrains Mono', monospace; font-size: 0.85em;
+  margin-left: 8px; border-radius: 3px; font-weight: 600;
+}
+
+/* ─── Architecture diagram boxes ──────────────────────── */
+.arch-diagram {
+  padding: 12px 14px; background: #F7F9FC;
+  border: 1px dashed var(--line); border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72em; line-height: 1.8;
+  color: var(--ink); margin: 10px 0;
+}
+.arch-diagram .flow-note { color: var(--sub); font-style: italic; }
+.arch-diagram .arrow { color: var(--accent); font-weight: 700; }
+
+/* ─── Pillar style (for win slide) ────────────────────── */
+.pillar-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.6em; color: var(--gold); font-weight: 700;
+  letter-spacing: 0.05em; line-height: 1; margin-bottom: 10px; display: block;
+}
+.receipt {
+  margin-top: 12px; padding-top: 10px;
+  border-top: 1px dashed var(--line);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65em; color: var(--sub); line-height: 1.5;
+}
+.receipt b { color: var(--navy); }
+
+/* ─── Params box for pipeline ─────────────────────────── */
+.params-box {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62em; color: var(--sub);
+  border-top: 1px dashed var(--line);
+  padding-top: 6px; margin-top: 8px; line-height: 1.6;
+}
+.params-box b { color: var(--accent); font-weight: 600; }
+
+/* ─── Pitch tags ──────────────────────────────────────── */
+.pitch-tag {
+  display: inline-block; padding: 4px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62em; text-transform: uppercase; letter-spacing: 0.12em;
+  border: 1px solid var(--accent); color: var(--accent);
+  border-radius: 20px; margin: 0 6px 6px 0; font-weight: 600;
+}
+
+/* ─── Source tray ─────────────────────────────────────── */
+.sources-tray {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55em; color: var(--sub);
+  letter-spacing: 0.05em; line-height: 1.5;
+  margin-top: 14px;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+.sources-tray sup { color: var(--accent); font-weight: 700; }
+.sources-tray .sep { color: var(--line); margin: 0 8px; }
+
+/* ─── Editorial-style pain quote (slide 2) ──────────── */
+.editorial-quote {
+  font-family: 'Inter', sans-serif; font-weight: 300; font-style: italic;
+  font-size: 1.45em; line-height: 1.3; color: var(--navy); max-width: 28ch;
+  letter-spacing: -0.01em;
+}
+.editorial-quote em { font-style: italic; color: var(--warn); font-weight: 400; }
+
+/* ─── 2x2 positioning chart (slide 3) ─────────────────── */
+.chart-2x2 {
+  position: relative; width: 100%; height: 380px;
+  background: linear-gradient(to top right, #FAFBFD, #FFFFFF);
+  border-left: 2px solid var(--navy); border-bottom: 2px solid var(--navy);
+  margin: 10px 0;
+}
+.chart-2x2 .axis-y {
+  position: absolute; left: -40px; top: 50%;
+  transform: translateY(-50%) rotate(-90deg); transform-origin: center;
+  font-size: 0.7em; color: var(--sub); font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap;
+}
+.chart-2x2 .axis-x {
+  position: absolute; bottom: -26px; left: 50%; transform: translateX(-50%);
+  font-size: 0.7em; color: var(--sub); font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.chart-2x2 .dot {
+  position: absolute; transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.chart-2x2 .dot .circle {
+  width: 22px; height: 22px; border-radius: 50%; background: var(--sub);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+.chart-2x2 .dot.us .circle {
+  background: var(--gold); width: 32px; height: 32px;
+  box-shadow: 0 0 0 8px rgba(201,162,39,0.2), 0 8px 20px rgba(201,162,39,0.4);
+}
+.chart-2x2 .dot .lbl {
+  margin-top: 8px; font-weight: 700; font-size: 0.78em; color: var(--navy);
+  white-space: nowrap;
+}
+.chart-2x2 .dot.us .lbl { color: #8A6E1A; font-size: 0.88em; }
+.chart-2x2 .dot .sub-lbl {
+  font-size: 0.6em; color: var(--sub); margin-top: 2px; white-space: nowrap;
+}
+.gap-arrow-box {
+  position: absolute; top: 6%; left: 42%;
+  color: var(--gold); font-weight: 700; font-size: 0.72em;
+  background: rgba(201,162,39,0.1);
+  padding: 6px 12px; border-radius: 6px; border: 1px dashed var(--gold);
+  transform: rotate(-8deg);
+}
+
+/* ─── Agent vs camera layout (slide 5) ────────────────── */
+.vs-cols { display: grid; grid-template-columns: 1fr 1.1fr; gap: 18px; align-items: stretch; }
+.vs-col { padding: 18px 18px 14px; border-radius: 10px; display: flex; flex-direction: column; }
+.vs-col.fixed { background: #F1F5F9; color: var(--sub); border: 1px solid var(--line); }
+.vs-col.agent { background: var(--card); border: 2px solid var(--gold); box-shadow: 0 10px 28px rgba(201,162,39,0.15); }
+.vs-col h4 { font-size: 0.72em; margin-bottom: 10px; }
+.vs-col.fixed h4 { color: var(--sub); }
+.vs-col.agent h4 { color: #8A6E1A; }
+.vs-linear { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 10px 0 14px; font-size: 0.82em; color: var(--sub); font-weight: 700; flex-wrap: wrap; }
+.vs-linear .step { padding: 8px 14px; background: white; border: 2px solid #CBD5E1; border-radius: 8px; }
+.vs-loop { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 8px; }
+.vs-loop .step { display: flex; align-items: center; gap: 10px; font-size: 0.74em; color: var(--ink); font-weight: 500; }
+.vs-loop .step .n { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75em; }
+.vs-loop .step .arrow { margin-left: auto; color: var(--sub); font-size: 0.7em; font-style: italic; }
+.vs-loop .reback { text-align: center; color: #8A6E1A; font-size: 0.8em; font-weight: 700; margin-top: 2px; }
+.vs-col p.sub-caption { font-size: 0.72em; line-height: 1.4; font-style: italic; margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.08); color: inherit; }
+.vs-banner { margin-top: 14px; padding: 16px; text-align: center; background: var(--navy); color: white; border-radius: 10px; font-size: 1em; font-weight: 600; font-style: italic; }
+
+/* ─── Hero photo grid (slide 6) ───────────────────────── */
+.hero-photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.hero-photo {
+  position: relative; border-radius: 10px; overflow: hidden;
+  background: #0E1A2B; aspect-ratio: 16 / 10;
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-photo .label {
+  position: absolute; top: 12px; left: 12px;
+  background: rgba(15,35,65,0.85); color: white;
+  padding: 5px 11px; border-radius: 5px;
+  font-size: 0.68em; font-weight: 700; letter-spacing: 0.08em;
+}
+.hero-photo .label.after { background: var(--gold); color: white; }
+.hero-photo .count {
+  position: absolute; bottom: 12px; right: 12px;
+  background: rgba(15,35,65,0.9); color: white;
+  padding: 8px 14px; border-radius: 5px;
+  font-size: 1.3em; font-weight: 800;
+}
+.hero-photo .count.after { color: var(--gold); }
+.hero-photo .placeholder {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.45); font-family: 'JetBrains Mono', monospace; font-size: 0.62em;
+  letter-spacing: 0.15em; text-align: center; padding: 20px;
+}
+.hero-strip { display: grid; grid-template-columns: 1.1fr 1.1fr 1fr; gap: 14px; margin-top: 14px; align-items: center; }
+.hero-strip .item { font-size: 0.72em; line-height: 1.35; color: var(--ink); }
+.hero-strip .item strong { display: block; color: var(--navy); font-size: 0.95em; margin-bottom: 3px; }
+.hero-urlbar {
+  background: white; color: var(--navy); padding: 10px 14px;
+  border-radius: 6px; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8em; font-weight: 600; text-align: center;
+  border: 2px solid var(--gold);
+}
+.hero-urlbar .icon { color: var(--gold); }
+
+/* ─── Why now tiles (slide 7) ─────────────────────────── */
+.whynow-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin: 30px 0; }
+.whynow-tile {
+  padding: 36px 24px; background: var(--card);
+  border: 1px solid var(--line); border-radius: 12px;
+  text-align: center; display: flex; flex-direction: column; justify-content: center;
+  min-height: 240px;
+}
+.whynow-tile .big {
+  font-size: 3em; font-weight: 800; color: var(--gold);
+  line-height: 1; letter-spacing: -0.02em; margin-bottom: 16px;
+}
+.whynow-tile .big small { font-size: 0.5em; }
+.whynow-tile .lbl { font-size: 0.8em; color: var(--navy); line-height: 1.35; }
+.whynow-tile .lbl strong { font-weight: 700; }
+
+/* ─── Money slide (slide 9) ───────────────────────────── */
+.money-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 20px 0 26px; border-bottom: 2px solid var(--line); margin-bottom: 22px; }
+.money-hero .item { text-align: center; }
+.money-hero .big { font-size: 4em; font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
+.money-hero .item.cost .big { color: var(--warn); }
+.money-hero .item.value .big { color: var(--green); }
+.money-hero .lbl { font-size: 0.75em; color: var(--sub); margin-top: 8px; font-style: italic; }
+.money-punch {
+  margin-top: 16px; padding: 16px 24px; text-align: center;
+  background: var(--navy); color: white; border-radius: 10px; line-height: 1.4;
+}
+.money-punch .row1 { font-size: 0.85em; font-weight: 500; color: rgba(255,255,255,0.85); margin-bottom: 6px; }
+.money-punch .row1 .em { color: var(--gold); font-weight: 700; }
+.money-punch .row2 { font-size: 1.2em; font-weight: 700; color: white; }
+.money-punch .row2 .em { color: var(--gold); font-weight: 800; }
+
+/* ─── Scale timeline (slide 10) ───────────────────────── */
+.scale-timeline { position: relative; margin: 20px 0 14px; padding: 0 20px; }
+.scale-line { position: absolute; left: 20px; right: 20px; top: 16px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--gold)); }
+.scale-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; position: relative; }
+.scale-ms { text-align: center; padding: 0 8px; }
+.scale-ms .dot { width: 20px; height: 20px; border-radius: 50%; background: var(--gold); margin: 6px auto 0; border: 4px solid var(--bg); box-shadow: 0 0 0 2px var(--gold); }
+.scale-ms .when { margin-top: 14px; font-size: 0.62em; font-weight: 700; color: var(--sub); letter-spacing: 0.1em; text-transform: uppercase; }
+.scale-ms .what { font-size: 1.1em; font-weight: 700; color: var(--navy); margin-top: 4px; }
+.scale-ms .who { font-size: 0.7em; color: var(--sub); margin-top: 4px; font-style: italic; }
+.scale-ms .rows { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); text-align: left; }
+.scale-ms .row-lbl { font-size: 0.55em; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; margin-top: 6px; }
+.scale-ms .row-lbl.build { color: var(--accent); }
+.scale-ms .row-lbl.validate { color: var(--green); }
+.scale-ms .row-body { font-size: 0.7em; color: var(--ink); line-height: 1.3; margin-top: 2px; }
+
+/* ─── Future grid (slide 13) ──────────────────────────── */
+.future-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 10px; }
+.future-card {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 10px; padding: 14px 16px;
+}
+.future-card .ttl { font-size: 0.88em; font-weight: 700; color: white; margin-bottom: 4px; }
+.future-card .desc { font-size: 0.68em; color: rgba(255,255,255,0.72); line-height: 1.35; }
+.future-card.flywheel { background: rgba(201,162,39,0.15); border-color: var(--gold); }
+.future-card.flywheel .ttl { color: var(--gold); }
+</style>
+</head>
+
+<body>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- ═════════════════════ 1. TITLE ═════════════════════ -->
+<section data-background-color="#0F2341">
+  <div class="title-slide">
+    <div class="tag">UMD Agentic-AI Challenge · Finals · Spring 2026</div>
+    <h1>Smart Shelf<br><span style="color: var(--gold); font-style: italic;">Auditor</span></h1>
+    <div class="sub">AI that thinks like your best store manager &mdash; for less than the price of a coffee.</div>
+    <div class="subline"><b style="color:#FFFFFF;">Same shelf intelligence, no robot fleet.</b> Runs on any associate's phone; no hardware to deploy, no shopper to dodge.</div>
+    <div class="meta">
+      <div><strong>Team</strong>Kejia Zhang · Marvyn Bailly<br>Minghan Yu · Chugang Yi</div>
+      <div><strong>Built for</strong>Regional grocery &amp; mass retail<br>50&ndash;500 store chains first</div>
+      <div><strong>Pitch</strong>10 min + 5 min Q&amp;A<br>Tyser Auditorium · Apr 24</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════ 2. THE COST OF AN EMPTY SHELF ═════════════════════ -->
+<section>
+  <div class="frame-header">
+    <div>
+      <div class="eyebrow">The cost of an empty shelf</div>
+      <h2>Last Friday, five minutes from this room, <span style="color: var(--warn);">31 empty shelves</span>.</h2>
+    </div>
+    <div class="brand">Smart Shelf Auditor · Agentic-AI Challenge</div>
+  </div>
+
+  <div class="grid-45-55" style="align-items: center;">
+    <div>
+      <div class="editorial-quote">
+        Thirty-one empty shelf spaces. <em>None of them flagged</em> by any system &mdash; not the planogram app, not the ERP, not the associate doing rounds three aisles over.
+      </div>
+      <div class="callout red" style="margin-top: 20px;">
+        For an average US supermarket doing <b>$37M in sales</b>, empty shelves cost <b>~$1.48M per store per year</b>. <span class="tiny">($37M &times; 4% out-of-stock loss rate · Corsten &amp; Gruen / FMI 2024)</span>
+      </div>
+    </div>
+    <div class="grid-3" style="gap: 14px;">
+      <div class="kpi big">
+        <div class="val">$1.73T</div>
+        <div class="lab">Lost globally / yr to inventory mismatch</div>
+      </div>
+      <div class="kpi big">
+        <div class="val">91%</div>
+        <div class="lab">of shoppers walk out rather than wait for a restock</div>
+      </div>
+      <div class="kpi big">
+        <div class="val">9%</div>
+        <div class="lab">of shoppers never come back to that store &mdash; ever</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sources-tray">
+    <sup>1</sup> IHL Group, <em>Fixing Inventory Distortion 2025</em> &mdash; $1.157T OOS + $572B overstock.
+    <span class="sep">·</span>
+    <sup>2</sup> NielsenIQ, <em>Shopper Trends 2024</em> &mdash; 91% walk-away, 9% permanent switch.
+    <span class="sep">·</span>
+    <sup>3</sup> FMI <em>Food Industry Facts 2024</em> &mdash; $37M avg store revenue ($711,806/wk &times; 52).
+  </div>
+</section>
+
+<!-- ═════════════════════ 3. WHY IT'S STILL UNSOLVED ═════════════════════ -->
+<section>
+  <div class="frame-header">
+    <div>
+      <div class="eyebrow">Why it's still unsolved</div>
+      <h2>The market has tried. Everything is <span style="color: var(--warn);">too expensive, too brittle, or too slow.</span></h2>
+    </div>
+    <div class="brand">Smart Shelf Auditor · Agentic-AI Challenge</div>
+  </div>
+
+  <div class="grid-55-45">
+    <div style="position: relative; padding: 30px 30px 40px 50px;">
+      <div class="chart-2x2">
+        <div class="axis-y">Reliability &rarr;</div>
+        <div class="axis-x">Cost per store / year &rarr;</div>
+        <div class="gap-arrow-box">&uarr; The gap nobody filled</div>
+
+        <div class="dot" style="bottom: 22%; left: 18%;">
+          <div class="circle"></div>
+          <div class="lbl">Manual audits</div>
+          <div class="sub-lbl">~$20K/yr labor · misses 30%</div>
+        </div>
+        <div class="dot" style="top: 16%; right: 10%;">
+          <div class="circle"></div>
+          <div class="lbl">Simbe Tally</div>
+          <div class="sub-lbl">$24&ndash;48K/store/yr</div>
+        </div>
+        <div class="dot" style="top: 42%; right: 22%;">
+          <div class="circle"></div>
+          <div class="lbl">Pensa</div>
+          <div class="sub-lbl">Custom CV, enterprise pricing</div>
+        </div>
+        <div class="dot us" style="top: 16%; left: 22%;">
+          <div class="circle"></div>
+          <div class="lbl">&#9733; Us</div>
+          <div class="sub-lbl">$200/mo · runs on a phone</div>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; justify-content: center;">
+      <div class="card card-gold">
+        <h3>What the incumbents all share</h3>
+        <ul class="check" style="margin-top: 8px;">
+          <li><b>Six-figure enterprise contracts</b> &mdash; priced for Coca-Cola HQ, not a 50-store regional chain</li>
+          <li><b>Dedicated hardware</b> &mdash; cameras to install, robots to dock, humans to avoid</li>
+          <li><b>Fixed pipelines</b> &mdash; quietly fail on dark aisles, fogged freezers, or a pushed-back product</li>
+        </ul>
+      </div>
+      <div class="callout green" style="margin-top: 14px;">
+        <b>Our wedge:</b> the tool that runs on equipment <b>every store already owns</b>, at a price <b>even the smallest chain can swallow</b>.
+      </div>
+    </div>
+  </div>
+
+  <div class="sources-tray">
+    <sup>4</sup> Simbe Tally RaaS pricing &mdash; Fortune, Oct 2024; <em>The Spoon</em>, Oct 2020.
+    <span class="sep">·</span>
+    <sup>5</sup> Manual audit labor: 2 hr/day &times; 365 &times; $20/hr fully-loaded &asymp; $14.6K, rounded to $20K incl. supervision.
+    <span class="sep">·</span>
+    <sup>6</sup> 30% miss rate: GMA / ECR Europe.
+  </div>
+</section>
+
+<!-- ═════════════════════ 4. WALMART × BOSSA NOVA — THE FOIL ═════════════════════ -->
+<section>
+  <div class="frame-header">
+    <div>
+      <div class="eyebrow">The foil &mdash; why robots failed at this</div>
+      <h2>Walmart tried. It killed the pilot after <span style="color: var(--red);">five years</span>.</h2>
+    </div>
+    <div class="brand">Smart Shelf Auditor · Agentic-AI Challenge</div>
+  </div>
+
+  <div class="grid-55-45">
+    <div>
+      <h4>Walmart &times; Bossa Nova timeline</h4>
+      <div class="timeline-vert">
+        <div class="tl-item">
+          <div class="year">2015</div>
+          <div class="event">Walmart begins testing <strong>Bossa Nova Robotics</strong> shelf-scanning robots in 50 stores.</div>
+        </div>
+        <div class="tl-item">
+          <div class="year">2019</div>
+          <div class="event">Expansion to <strong>300 stores</strong>. Robots touted as "3&times; faster than humans" at inventory.</div>
+        </div>
+        <div class="tl-item">
+          <div class="year">JAN 2020</div>
+          <div class="event">Walmart commits to <strong>1,000-store rollout</strong> by year-end.</div>
+        </div>
+        <div class="tl-item end">
+          <div class="year">NOV 2020</div>
+          <div class="event"><strong>Walmart ends the contract.</strong> WSJ: humans got similar results with simpler solutions. Customer reaction to 6-ft robots was a concern.</div>
+        </div>
+        <div class="tl-item end">
+          <div class="year">2023</div>
+          <div class="event">Bossa Nova, having raised <strong>$100M+</strong>, shuts down.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card card-red">
+        <h3>What Walmart told the market</h3>
+        <ul class="check" style="margin-top: 6px;">
+          <li><b>Cost didn't beat humans.</b> Associates got "similar results" at lower incremental cost.</li>
+          <li><b>Customer-experience regression.</b> Shoppers actively disliked navigating around 6-foot autonomous robots.</li>
+          <li><b>Hardware capex &amp; service.</b> Fleet depreciation, maintenance, battery swaps &mdash; an opex line every month.</li>
+          <li><b>SKU ceiling.</b> One unit per ~80,000 SKUs. A supercenter needs two.</li>
+        </ul>
+      </div>
+      <div class="callout navy" style="margin-top: 12px;">
+        <b>Our read:</b> the <i>robot</i> was the wrong form factor. The <i>idea</i> &mdash; automating shelf intelligence &mdash; is more right than ever. The form factor retail actually uses is the <b>phone already in every associate's pocket</b>.
+      </div>
+    </div>
+  </div>
+
+  <div class="sources-tray">
+    <sup>7</sup> Wall Street Journal &amp; Retail Dive, Nov 2020.
+    <span class="sep">·</span>
+    <sup>8</sup> CNBC, Nov 2, 2020 &mdash; "Walmart ends contract with robotics company Bossa Nova."
+  </div>
+</section>
+
+<!-- ═════════════════════ 5. A CAMERA SEES. AN AGENT REASONS. ═════════════════════ -->
+<section>
+  <div class="frame-header">
+    <div>
+      <div class="eyebrow">Our insight</div>
+      <h2>A camera <span style="color: var(--sub);">sees</span>. An agent <span style="color: var(--gold);">reasons</span>.</h2>
+    </div>
+    <div class="brand">Smart Shelf Auditor · Agentic-AI Challenge</div>
+  </div>
+
+  <div class="vs-cols">
+    <div class="vs-col fixed">
+      <h4>Fixed pipeline (everyone else)</h4>
+      <div class="vs-linear">
+        <div class="step">Photo</div>
+        <div>&rarr;</div>
+        <div class="step">Detect</div>
+        <div>&rarr;</div>
+        <div class="step">Report</div>
+      </div>
+      <p class="sub-caption">Fails quietly when lights are dim, the freezer is fogged, or a product is just pushed back behind another.</p>
+    </div>
+    <div class="vs-col agent">
+      <h4>Agentic loop (us)</h4>
+      <div class="vs-loop">
+        <div class="step"><span class="n">1</span>Check image quality<span class="arrow">&rarr; if dark / foggy</span></div>
+        <div class="step"><span class="n">2</span>Auto-enhance the photo<span class="arrow">&rarr; then</span></div>
+        <div class="step"><span class="n">3</span>Detect products + gaps<span class="arrow">&rarr; if uncertain</span></div>
+        <div class="step"><span class="n">4</span>Ask vision AI by row<span class="arrow">&rarr; if low confidence</span></div>
+        <div class="step"><span class="n">5</span>Verify via web search<span class="arrow">&rarr; finalize</span></div>
+        <div class="reback">&uarr; loops back as needed</div>
+      </div>
+      <p class="sub-caption">Adapts in real time. Skips what isn't needed. Asks for help when it doesn't know.</p>
+    </div>
+  </div>
+
+  <div class="vs-banner">"The system makes a precise decision for every photo &mdash; no fixed rules, no fragile cascades."</div>
+</section>
+
+<!-- ═════════════════════ 6. HERO — FOGGY FREEZER ═════════════════════ -->
+<section>
+  <div class="frame-header">
+    <div>
+      <div class="eyebrow" style="color: var(--gold);">&#9733; Hero &mdash; watch what it does to a foggy freezer</div>
+      <h2>Same camera. Same second. <span style="color: var(--warn);">The shelf was never the problem.</span></h2>
+    </div>
+    <div class="brand">Smart Shelf Auditor · Agentic-AI Challenge</div>
+  </div>
+
+  <div class="hero-photo-grid">
+    <div class="hero-photo">
+      <img src="presentation_slides/assets/fog_before.jpg" alt="Foggy freezer before">
+      <div class="placeholder">[fog_before.jpg &mdash; foggy freezer, raw]</div>
+      <div class="label">BEFORE</div>
+      <div class="count">15 products</div>
+    </div>
+    <div class="hero-photo">
+      <img src="presentation_slides/assets/fog_after.jpg" alt="Fog cleared after">
+      <div class="placeholder">[fog_after.jpg &mdash; fog cleared, annotated]</div>
+      <div class="label after">AFTER (auto-cleared)</div>
+      <div class="count after">48 products</div>
+    </div>
+  </div>
+
+  <div class="hero-strip">
+    <div class="item">
+      <strong>Dark aisle</strong>
+      Brightness 44 &rarr; 97. <b>60 products recovered</b> that a fixed pipeline would miss entirely.
+    </div>
+    <div class="item">
+      <strong>Normal shelf</strong>
+      97 products detected. <b>3 gaps</b>. Identifies Bertolli pasta sauce by name.
+    </div>
+    <div class="hero-urlbar"><span class="icon">&#128279;</span>&nbsp; try-it-live.shelfauditor.demo<br><span class="tiny" style="color: var(--sub);">drop any photo &mdash; no signup</span></div>
+  </div>
+
+  <div class="sources-tray">
+    Photos: real shelf captures from Mid-Atlantic grocery stores (Giant, Greenbelt MD). Enhancement: CLAHE for brightness · Dark Channel Prior (He et al. 2009) for fog. End-to-end scan time: 12&ndash;18 seconds.
+  </div>
+</section>
+
+<!-- ═════════════════════ 7. WHY NOW ═════════════════════ -->
+<section>
+  <div class="frame-header">
+    <div>
+      <div class="eyebrow">Why now</div>
+      <h2>Three forces converged in the last <span style="color: var(--gold);">18 months</span>.</h2>
+    </div>
+    <div class="brand">Smart Shelf Auditor · Agentic-AI Challenge</div>
+  </div>
+
+  <div class="whynow-tiles">
+    <div class="whynow-tile">
+      <div class="big"><small>$</small>1<small>/M</small></div>
+      <div class="lbl">Cost of vision AI tokens today &mdash; <strong>10&times; cheaper</strong> than 2023. A shelf scan now costs less than a penny.</div>
+    </div>
+    <div class="whynow-tile">
+      <div class="big">12<small>MP</small></div>
+      <div class="lbl">In every associate's pocket. <strong>Better than the dedicated shelf cameras</strong> Trax was selling in 2018.</div>
+    </div>
+    <div class="whynow-tile">
+      <div class="big">1.7<small>M</small></div>
+      <div class="lbl">US retail workers still unhired vs. Feb 2020. <strong>Managers are begging</strong> for automation.</div>
+    </div>
+  </div>
+
+  <div class="callout navy" style="margin-top: 22px; text-align: center;">
+    <b>The window opened.</b> We walked through it.
+  </div>
+
+  <div class="sources-tray">
+    <sup>9</sup> Foundation-model vision-language API pricing &mdash; ~$1/M input, ~$5/M output tokens at today's leading providers.
+    <span class="sep">·</span>
+    <sup>10</sup> iPhone 6s (2015) onward, Android equivalents from 2017.
+    <span class="sep">·</span>
+    <sup>11</sup> US Chamber of Commerce, <em>Understanding America's Labor Shortage</em>, 2025.
+  </div>
+</section>
+
+<!-- ═════════════════════ 8. TIERED INFERENCE — WHY $8 HOLDS UP ═════════════════════ -->
+<section>
+  <div class="frame-header">
+    <div>
+      <div class="eyebrow">How $40/store/month holds up &mdash; the cost ladder</div>
+      <h2>One agentic loop. <span style="color: var(--green);">The agent picks the cheapest tool first &mdash; ~80% of calls never hit the API.</span></h2>
+    </div>
+    <div class="brand">Smart Shelf Auditor · Agentic-AI Challenge</div>
+  </div>
+
+  <div class="grid-55-45">
+    <div>
+      <h4>Tiered inference ladder</h4>
+      <div class="tier-row tier-1">
+        <div class="tier-label">Tier 1</div>
+        <div class="tier-desc"><b>CV primitives</b> &mdash; detect_products · rows · gaps · occupancy</div>
+        <div class="tier-cost green-text">~$0.001 / call</div>
+      </div>
+      <div class="tier-row tier-2">
+        <div class="tier-label">Tier 2</div>
+        <div class="tier-desc"><b>Spatial reasoning</b> &mdash; zoom_in · depth verification · image enhancement</div>
+        <div class="tier-cost accent-text">~$0.002 / call</div>
+      </div>
+      <div class="tier-row tier-3">
+        <div class="tier-label">Tier 3</div>
+        <div class="tier-desc"><b>Vision-language model</b> &mdash; identify_gap_context · shelf_quality (foundation-model API)</div>
+        <div class="tier-cost" style="color: var(--warn)">~$0.01 / call</div>
+      </div>
+      <div class="tier-row tier-4">
+        <div class="tier-label">Tier 4</div>
+        <div class="tier-desc"><b>Web-grounded synthesis</b> &mdash; only when VLM confidence is low &amp; finding is material</div>
+        <div class="tier-cost red-text">~$0.05 / call</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card card-gold">
+        <h3>Bottom-up to $40/store/month</h3>
+        <ul class="check" style="margin-top: 8px; font-size: 0.88em;">
+          <li><b>~$0.005</b> per scan average (Tier 1&ndash;2 heavy, Tier 3 only on gaps)</li>
+          <li>&times; <b>7,500 scans / store / month</b> (~250 scans/day &times; 30 days) = <b>$37.50</b></li>
+          <li>+ <b>$2.50</b> hosting and monitoring (amortized across ~100 stores)</li>
+          <li>= <b>$40/store/month marginal cost</b></li>
+        </ul>
+      </div>
+      <div class="callout green" style="margin-top: 12px;">
+        Even if scan volume <b>doubles</b> to 500/day, we're still at <b>~$77/month</b>. With prompt caching on, that drops to <b>~$17</b>. Unit economics hold at every realistic throughput.
+      </div>
+    </div>
+  </div>
+
+  <div class="sources-tray">
+    Token math: ~1,800 input + 200 output per vision-language call &times; leading VLM rates ($1/M in, $5/M out) = $0.0028/call. Gap-hit rate ~50% &rarr; $0.0015 avg &rarr; rounded to $0.005 for safety margin. Full derivation available on request.
+  </div>
+</section>
+
+<!-- ═════════════════════ 9. $8 IN. $148K OUT. ═════════════════════ -->
+<section>
+  <div class="frame-header">
+    <div>
+      <span class="crit-ribbon">The money slide</span>
+      <h2><span style="color: var(--warn);">$8 in.</span> <span style="color: var(--green);">$148K out.</span></h2>
+    </div>
+    <div class="brand">Smart Shelf Auditor · Agentic-AI Challenge</div>
+  </div>
+
+  <div class="money-hero">
+    <div class="item cost">
+      <div class="big">$8</div>
+      <div class="lbl">per store, per month &mdash; what it costs us</div>
+    </div>
+    <div class="item value">
+      <div class="big">$148K</div>
+      <div class="lbl">per store, per year &mdash; what the retailer recovers</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap: 40px;">
+    <div>
+      <h4>Our cost / store / month</h4>
+      <table>
+        <tbody>
+          <tr><td>Vision AI calls (~1,500/mo, batched)</td><td class="num">$6</td></tr>
+          <tr><td>Hosting + monitoring</td><td class="num">$2</td></tr>
+          <tr><td>Phone hardware (already in-store)</td><td class="num">$0</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td><b>Total marginal cost</b></td><td class="num"><b>$8</b></td></tr>
+        </tfoot>
+      </table>
+    </div>
+    <div>
+      <h4>Customer recovery / store / year</h4>
+      <table>
+        <tbody>
+          <tr><td>Lost sales recovered (10% &times; $1.48M)</td><td class="num">$148K</td></tr>
+          <tr><td>Audit labor saved (75% of $14.6K)</td><td class="num">$15K</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td><b>Total annual value</b></td><td class="num"><b>$163K</b></td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="money-punch">
+    <div class="row1">Price: <span class="em">$200/mo per store</span> &nbsp;·&nbsp; Gross margin: <span class="em">96%</span> &nbsp;·&nbsp; Customer payback: <span class="em">6 days</span> &nbsp;·&nbsp; ROI: <span class="em">67&times;</span> per store</div>
+    <div class="row2">We are not 30% cheaper than Trax. <span class="em">We are 30&times; cheaper.</span></div>
+  </div>
+
+  <div class="sources-tray">
+    Revenue anchor: <b>$37M</b> avg US supermarket (FMI 2024). OOS loss: 4% (Corsten &amp; Gruen 2004, canonical). Recovery: 10% (industry CV studies show 20&ndash;40%; we model half the low end). Trax reference: ~$8K/store/mo enterprise contracts.
+  </div>
+</section>
+
+<!-- ═════════════════════ 10. FROM 5 STORES TO 500 ═════════════════════ -->
+<section>
+  <div class="frame-header">
+    <div>
+      <span class="crit-ribbon">Roadmap &mdash; 12 months</span>
+      <h2>From <span style="color: var(--accent);">5 stores</span> to <span style="color: var(--gold);">500</span> &mdash; and the architecture scales past that.</h2>
+    </div>
+    <div class="brand">Smart Shelf Auditor · Agentic-AI Challenge</div>
+  </div>
+
+  <div class="grid-55-45">
+    <div>
+      <div class="scale-timeline">
+        <div class="scale-line"></div>
+        <div class="scale-grid">
+          <div class="scale-ms">
+            <div class="dot"></div>
+            <div class="when">Months 1&ndash;3</div>
+            <div class="what">Pilot</div>
+            <div class="who">5 stores · 1 regional chain</div>
+            <div class="rows">
+              <div class="row-lbl build">Build</div>
+              <div class="row-body">Planogram ingest v1, mobile capture app, real-time UI</div>
+              <div class="row-lbl validate">Validate</div>
+              <div class="row-body">Real-world precision, ops friction, associate UX</div>
+            </div>
+          </div>
+          <div class="scale-ms">
+            <div class="dot"></div>
+            <div class="when">Months 4&ndash;6</div>
+            <div class="what">Beta</div>
+            <div class="who">50 stores · paid at $200/mo</div>
+            <div class="rows">
+              <div class="row-lbl build">Build</div>
+              <div class="row-body">Manager dashboard, alert routing, planogram-aware gaps</div>
+              <div class="row-lbl validate">Validate</div>
+              <div class="row-body">Pricing elasticity, multi-store ops, churn drivers</div>
+            </div>
+          </div>
+          <div class="scale-ms">
+            <div class="dot"></div>
+            <div class="when">Months 7&ndash;12</div>
+            <div class="what">Scale</div>
+            <div class="who">500 stores · 2 enterprise deals</div>
+            <div class="rows">
+              <div class="row-lbl build">Build</div>
+              <div class="row-body">Multi-tenant infra, ERP write-back, SOC 2 compliance</div>
+              <div class="row-lbl validate">Validate</div>
+              <div class="row-body">Enterprise sales motion, integration patterns</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callout gold" style="margin-top: 18px;">
+        Each phase ships <b>working software</b> and produces <b>measurable learning</b> &mdash; not just headcount growth. 96% gross margin from day one of paid beta.
+      </div>
+    </div>
+    <div>
+      <h4>Same architecture at fleet scale</h4>
+      <div class="chart-wrap" style="height: 210px; margin-top: 6px;">
+        <canvas id="fleetChart"></canvas>
+      </div>
+      <div class="callout navy" style="margin-top: 10px; font-size: 0.75em;">
+        At <b>4,605 Walmart US stores</b>: ~<b>$2.9B recovered revenue/yr</b> against ~<b>$11M platform cost</b> at our $200/mo price. <span class="tiny">No rebuild &mdash; same agent, same phone-first architecture.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════ 11. RISKS WE SLEEP WITH ═════════════════════ -->
+<section>
+  <div class="frame-header">
+    <div>
+      <span class="crit-ribbon">Ripple effects &amp; risks</span>
+      <h2>The four risks we sleep with.</h2>
+    </div>
+    <div class="brand">Smart Shelf Auditor · Agentic-AI Challenge</div>
+  </div>
+
+  <div class="grid-2" style="gap: 16px;">
+    <div class="risk risk-red">
+      <h4>! False positives waste associate time</h4>
+      <p>A naive system drowns a store manager in notifications and erodes trust &mdash; the exact failure mode that killed Bossa Nova's perceived value at Walmart.</p>
+      <div class="mitig"><b>Mitigation:</b> every refill task requires a 1-tap human accept. The agent recommends, never commands. <b>Alert fatigue guardrails:</b> severity-tiered refill checklist + per-shift cap + revenue-weighted ranking baked into the report schema.</div>
+    </div>
+    <div class="risk risk-warn">
+      <h4>! Customer privacy &mdash; faces in shelf photos</h4>
+      <p>Shelf captures occasionally include customers in the background. Policy and perception both matter.</p>
+      <div class="mitig"><b>Mitigation:</b> faces blurred on-device before any image leaves the phone. Photos stored encrypted, deleted after audit. GDPR &amp; CCPA compliant by default; union-ready deployment protocol on request.</div>
+    </div>
+    <div class="risk risk-purple">
+      <h4>! "It's going to take my job"</h4>
+      <p>The obvious objection. Our answer isn't "it won't" &mdash; it's "here's what your job becomes."</p>
+      <div class="mitig"><b>Mitigation:</b> associates redeploy from audit drudgery to customer-facing work &mdash; the exact activity-based shift McKinsey recommends. Pilot will validate associate preference directly.</div>
+    </div>
+    <div class="risk risk-accent">
+      <h4>! Graceful degradation when the LLM is down</h4>
+      <p>Enterprise reliability can't depend on a third-party API's uptime. If the VLM is unreachable, the audit must still happen.</p>
+      <div class="mitig"><b>Mitigation:</b> <code>fallback_report()</code> returns a full audit from deterministic CV alone. Dehaze + CLAHE for bad photos. <b>Enterprise reliability is a first-class path, not an afterthought.</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════ 12. WE ARE THE EYES THE STACK WAS MISSING ═════════════════════ -->
+<section>
+  <div class="frame-header">
+    <div>
+      <div class="eyebrow">Organizational integration</div>
+      <h2>We are the <span style="color: var(--accent);">eyes</span> the stack was missing.</h2>
+    </div>
+    <div class="brand">Smart Shelf Auditor · Agentic-AI Challenge</div>
+  </div>
+
+  <div class="grid-2" style="gap: 28px; align-items: stretch;">
+    <div>
+      <h4>Upstream &mdash; what we ingest</h4>
+      <div class="card card-accent" style="margin-bottom: 10px;">
+        <h3><span class="icon" style="background: var(--accent)">&uarr;</span>Planogram</h3>
+        <p><b>Blue Yonder · RELEX</b> &mdash; tells us which size belongs in that shelf position, so we move from guessing brands to knowing exact SKUs.</p>
+      </div>
+      <div class="card card-accent" style="margin-bottom: 10px;">
+        <h3><span class="icon" style="background: var(--accent)">&uarr;</span>POS / sales velocity</h3>
+        <p><b>NCR · Toast</b> &mdash; revenue-weight every gap so the refill checklist is ranked by dollars, not alphabetical order.</p>
+      </div>
+      <div class="card card-accent">
+        <h3><span class="icon" style="background: var(--accent)">&uarr;</span>Warehouse inventory</h3>
+        <p><b>SAP · Manhattan Associates</b> &mdash; distinguish a shelf-replenishment problem from a stockroom-empty problem.</p>
+      </div>
+    </div>
+    <div>
+      <h4>Downstream &mdash; what we feed</h4>
+      <div class="card card-gold" style="margin-bottom: 10px;">
+        <h3><span class="icon" style="background: var(--gold)">&darr;</span>Associate task app</h3>
+        <p><b>Zebra Reflexis · Theatro</b> &mdash; every gap becomes a task in the app they already use. Structured JSON (bbox + quantity_needed + unit_price) mirrors what those systems accept.</p>
+      </div>
+      <div class="card card-gold" style="margin-bottom: 10px;">
+        <h3><span class="icon" style="background: var(--gold)">&darr;</span>Auto-reorder</h3>
+        <p><b>SAP S/4HANA</b> &mdash; chronic OOS auto-triggers replenishment in the ERP they already run.</p>
+      </div>
+      <div class="card card-gold">
+        <h3><span class="icon" style="background: var(--gold)">&darr;</span>Manager dashboard &amp; LP</h3>
+        <p><b>Power BI · Looker</b> &mdash; aggregated OSA per store; loss-prevention analytics roll into existing tools.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout gold" style="margin-top: 16px;">
+    <b>Planogram is our <i>output</i>, not a prerequisite.</b> Most stores don't maintain a clean one &mdash; we auto-derive a reference catalog from "good day" photos using the same VLM stack. <span class="gold-text"><b>Procurement loves us. IT doesn't fight us.</b></span>
+  </div>
+</section>
+
+<!-- ═════════════════════ 13. TODAY: SHELVES. TOMORROW: EVERY AISLE. ═════════════════════ -->
+<section data-background-color="#0F2341">
+  <div class="end-slide">
+    <div style="font-size: 0.7em; color: var(--gold); font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 12px;">The vision &amp; the ask</div>
+    <h1>Today: <span style="color: rgba(255,255,255,0.45);">shelves.</span> &nbsp; Tomorrow: <span style="color: var(--gold); font-style: italic;">every aisle, autonomous.</span></h1>
+
+    <div class="sub" style="margin-top: 8px; margin-bottom: 20px;">
+      <b style="color: white; font-style: normal;">4 UMD students. 12 grocery stores walked in 6 weeks.</b> Every scan makes the next one smarter &mdash; by 1M scans, our data corpus cannot be replicated.
+    </div>
+
+    <div class="future-grid">
+      <div class="future-card flywheel">
+        <div class="ttl">&#9775; Data flywheel</div>
+        <div class="desc">Every scan trains the next. Labeled shelves compound; no incumbent can backfill a year of ops data.</div>
+      </div>
+      <div class="future-card">
+        <div class="ttl">Price tag accuracy</div>
+        <div class="desc">Same camera, same agent &mdash; verify shelf prices match POS in real time.</div>
+      </div>
+      <div class="future-card">
+        <div class="ttl">Planogram compliance</div>
+        <div class="desc">Catch misplaced products and unauthorized resets without manual audits.</div>
+      </div>
+      <div class="future-card">
+        <div class="ttl">Predictive restocking</div>
+        <div class="desc">Cross temporal scan data with POS velocity to pre-empt OOS before it happens.</div>
+      </div>
+      <div class="future-card">
+        <div class="ttl">Multi-store network insights</div>
+        <div class="desc">Chain-wide patterns: which SKUs go OOS first, which stores struggle most.</div>
+      </div>
+      <div class="future-card">
+        <div class="ttl">Customer flow analytics</div>
+        <div class="desc">Re-use the same agentic perception layer for traffic and dwell-time insights.</div>
+      </div>
+    </div>
+
+    <div class="links" style="margin-top: 24px;">
+      <div class="link-card"><strong>The ask</strong>1 pilot partner &mdash; regional chain, 5&ndash;10 stores<br>Mentors in retail enterprise sales</div>
+      <div class="link-card"><strong>Live demo</strong>try-it-live.shelfauditor.demo<br>&rarr; drop any shelf photo</div>
+      <div class="link-card"><strong>Team</strong>Kejia Zhang · Marvyn Bailly<br>Minghan Yu · Chugang Yi · UMD</div>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  progress: true,
+  controls: true,
+  transition: 'slide',
+  transitionSpeed: 'default',
+  width: 1280,
+  height: 760,
+  margin: 0.04,
+  minScale: 0.2,
+  maxScale: 2.0,
+  plugins: [ RevealHighlight ]
+});
+
+// Render the fleet-scale chart once its slide is near
+function drawFleet() {
+  const ctx = document.getElementById('fleetChart');
+  if (!ctx || ctx.dataset.drawn) return;
+  ctx.dataset.drawn = '1';
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['5 (pilot)', '50 (beta)', '500 (scale)', '4,605 (fleet)'],
+      datasets: [
+        {
+          label: 'Recovered revenue ($M/yr)',
+          data: [0.74, 7.4, 74, 2900],
+          backgroundColor: 'rgba(27,153,139,0.75)',
+          borderColor: '#1B998B',
+          borderWidth: 2
+        },
+        {
+          label: 'Platform cost ($M/yr)',
+          data: [0.012, 0.12, 1.2, 11],
+          backgroundColor: 'rgba(201,162,39,0.8)',
+          borderColor: '#C9A227',
+          borderWidth: 2
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 10, family: 'Inter' }, boxWidth: 12 } },
+        title: { display: true, text: 'Fleet-scale economics · log scale', font: { size: 11, family: 'Inter', weight: 600 }, color: '#0F2341' },
+        tooltip: {
+          callbacks: {
+            label: (c) => `${c.dataset.label}: $${c.parsed.y}M`
+          }
+        }
+      },
+      scales: {
+        y: {
+          type: 'logarithmic',
+          title: { display: true, text: '$M / year', font: { size: 10, family: 'Inter' } },
+          ticks: { callback: v => '$' + v + 'M' }
+        },
+        x: { title: { display: true, text: 'Stores deployed', font: { size: 10, family: 'Inter' } } }
+      }
+    }
+  });
+}
+Reveal.on('slidechanged', drawFleet);
+Reveal.on('ready', drawFleet);
+</script>
+
+</body>
+</html>
